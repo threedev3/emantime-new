@@ -1,0 +1,97 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("assets/fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins-light";
+  src: url("assets/fonts/Poppins-ExtraLight.ttf");
+}
+@font-face {
+  font-family: "Poppins-bold";
+  src: url("assets/fonts/Poppins-Bold.ttf");
+}
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  font-family: "Poppins";
+}
+/* Apply font style after small screens (640px or larger) */
+@media (min-width: 640px) {
+  .responsive-font {
+    font-family: "Poppins"; /* Switch to light font */
+  }
+}
+.bg-header {
+  background-position: center bottom;
+}
+
+@media (min-width: 540px) {
+  .bg-header {
+    background-position: center bottom;
+  }
+}
+
+.poppins-medium {
+  font-family: "Poppins";
+}
+.poppins-light {
+  font-family: "Poppins-light";
+}
+.poppins-bold {
+  font-family: "Poppins-bold";
+}
+
+.react-international-phone-country-selector-button,
+.react-international-phone-input-container .react-international-phone-input {
+  border: none;
+  background-color: #d9d9d9 !important;
+  color: #ffffff;
+}
+.react-international-phone-country-selector-button {
+  padding: 0px 0px !important;
+}
+.react-international-phone-country-selector-button:hover {
+  background-color: #383838;
+  border-radius: 5px;
+}
+
+.react-international-phone-input-container
+  .react-international-phone-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  padding: 16px 24px !important;
+}
+.react-international-phone-input {
+  width: 500px !important;
+}
+
+.react-international-phone-input-container:focus {
+  outline: none; /* focus:outline-none */
+  box-shadow: none; /* focus:ring-0 focus:ring-none */
+  width: "100%";
+}
+
+.react-international-phone-country-selector-container {
+  position: absolute !important;
+  z-index: 50; /* Ensure it stays above other elements */
+  background-color: #ffffff; /* Ensure clear visibility */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add modern shadow */
+  border-radius: 8px; /* Rounded corners for modern UI */
+  margin-top: 4px; /* Avoid overlapping with input */
+}
+
+/* Ensure dropdown does not resize container */
+.react-international-phone-country-selector-container ul {
+  max-height: 250px; /* Limit height of dropdown */
+  overflow-y: auto; /* Scroll if necessary */
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
