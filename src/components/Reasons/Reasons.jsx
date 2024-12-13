@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import icons from "../../assets/icons/icons";
 import images from "../../assets/img/images";
 import "slick-carousel/slick/slick.css";
@@ -8,6 +8,7 @@ import InlineSvg from "../SVGImage/SVGImage";
 
 const Reasons = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   const reasonItems = [
     {
@@ -84,6 +85,21 @@ const Reasons = () => {
   const svgColor = "#FFF5D8";
   const svgHoverColor = "#DB9E30";
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.matchMedia("(min-width: 1024px)").matches);
+    };
+
+    // Initialize screen size check
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
       className="w-full px-6 py-12 bg-no-repeat lg:bg-top bg-center bg-cover overflow-x-hidden"
@@ -125,8 +141,8 @@ const Reasons = () => {
                   ? "xl:mt-16 lg:mt-12 md:mt-0 mt-0"
                   : ""
               }`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={() => isLargeScreen && setHoveredIndex(index)}
+              onMouseLeave={() => isLargeScreen && setHoveredIndex(null)}
             >
               <InlineSvg
                 url={images.cardImgSvg}
@@ -139,12 +155,12 @@ const Reasons = () => {
               <div className="absolute inset-0 flex flex-col items-center justify-center xl:gap-6 min-[540px]:gap-5 gap-10">
                 <img src={item.icon} alt="" />
                 <div>
-                  <h3 className="text-xl max-w-[160px] text-center font-semibold group-hover:text-white">
+                  <h3 className="text-xl max-w-[160px] text-center font-semibold lg:group-hover:text-white">
                     {item.title}
                   </h3>
                 </div>
                 <div>
-                  <p className="min-[1600px]:text-base text-sm text-center max-w-[80%] mx-auto group-hover:text-white text-black/65">
+                  <p className="min-[1600px]:text-base text-sm text-center max-w-[80%] mx-auto lg:group-hover:text-white text-black/65">
                     {item.description}
                   </p>
                 </div>

@@ -8,7 +8,11 @@ const Topbar = () => {
         <div className="flex sm:gap-12 gap-6 items-center">
           <div className="flex sm:gap-3 gap-2 items-center">
             <div>
-              <img src={images.whatsapp} alt="" />
+              <img
+                src={images.whatsapp}
+                alt=""
+                className="sm:w-10 w-8 object-contain"
+              />
             </div>
             <div>
               <h3 className="font-semibold sm:text-base text-xs">
@@ -18,7 +22,11 @@ const Topbar = () => {
           </div>
           <div className="flex sm:gap-3 gap-2 items-center">
             <div>
-              <img src={images.phone} alt="" />
+              <img
+                src={images.phone}
+                alt=""
+                className="sm:w-10 w-8 object-contain"
+              />
             </div>
             <div>
               <h3 className="font-semibold sm:text-base text-xs">

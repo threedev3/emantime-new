@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import icons from "../../assets/icons/icons";
 import images from "../../assets/img/images";
 import "slick-carousel/slick/slick.css";
@@ -8,6 +8,7 @@ import InlineSvg from "../SVGImage/SVGImage";
 
 const Programs = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   const reasonItems = [
     {
@@ -79,6 +80,21 @@ const Programs = () => {
   const svgColor = "#FFF5D8";
   const svgHoverColor = "#DB9E30";
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.matchMedia("(min-width: 1024px)").matches);
+    };
+
+    // Initialize screen size check
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="w-full px-6 xl:py-12 py-6 overflow-hidden relative">
       <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-6">
@@ -104,8 +120,8 @@ const Programs = () => {
                   ? "xl:mt-24 lg:mt-12 md:mt-0 mt-0"
                   : ""
               }`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={() => isLargeScreen && setHoveredIndex(index)}
+              onMouseLeave={() => isLargeScreen && setHoveredIndex(null)}
               // style={{
               //   backgroundColor:
               //     hoveredIndex === index ? "#DB9E30" : "transparent",
@@ -133,7 +149,7 @@ const Programs = () => {
                   )}
                 </div>
                 <div>
-                  <h3 className="text-xl max-w-[200px] text-center font-semibold group-hover:text-white">
+                  <h3 className="text-xl max-w-[200px] text-center font-semibold lg:group-hover:text-white">
                     {item.title}
                   </h3>
                 </div>
@@ -141,7 +157,7 @@ const Programs = () => {
                   <ul className="text-center min-[1500px]:max-w-[90%] max-w-[80%] mx-auto flex flex-col xl:gap-2 gap-1">
                     {item.description.map((item, index) => (
                       <li
-                        className="xl:text-sm min-[960px]:text-sm min-[716px]:text-sm min-[414px]:text-sm text-xs group-hover:text-white"
+                        className="xl:text-sm min-[960px]:text-sm min-[716px]:text-sm min-[414px]:text-sm text-xs lg:group-hover:text-white"
                         key={index}
                       >
                         {item}
