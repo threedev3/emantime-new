@@ -40,6 +40,7 @@ const CoursePage = () => {
         image={course.images.learn}
         learnItems={course.whatYouWillLearn}
         reverse={course.reverseLearn || false}
+        bgColor={course.bgColor}
       />
       <CourseFor
         courseFor={course.courseFor}

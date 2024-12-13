@@ -2,14 +2,24 @@ import React from "react";
 import images from "../../assets/img/images";
 import icons from "../../assets/icons/icons";
 import { handleScroll } from "../../utils/scrollToElement";
+import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
 const Unique = () => {
   return (
     <div className="w-full px-6 xl:py-12 py-6 overflow-x-hidden relative">
       <div className="max-w-[1600px] mx-auto ">
-        <div className="flex justify-between items-center gap-8">
+        <div className="flex justify-start items-center xl:gap-32 lg:gap-24 gap-12">
           <div className="lg:block hidden">
-            <img src={images.uniqueImg} alt="" />
+            <div className="relative group w-fit">
+              <div
+                className={`absolute inset-0 translate-x-[10px] translate-y-[6px] rounded-xl  opacity-0 transition-all duration-300 group-hover:opacity-25 bg-[#DB9E30]`}
+              />
+              <img
+                src={images.uniqueImg}
+                alt=""
+                className="rounded-xl relative transition-all duration-200 ease-out hover:-translate-y-1 active:translate-y-0"
+              />
+            </div>
           </div>
           <div className="flex flex-col xl:gap-8 gap-3 ">
             <div>
@@ -41,21 +51,18 @@ const Unique = () => {
               </li>
             </ul>
 
-            <div className=" ml-3">
-              <button
-                className="py-3 px-6 bg-buttonBg text-white rounded-full"
-                onClick={() => handleScroll("contact")}
-              >
-                Get Enrolled
-              </button>
-            </div>
+            <SecondaryButton
+              label="Get Enrolled"
+              className="bg-[#DB9E30]"
+              buttonBg="bg-buttonBg text-white"
+            />
           </div>
         </div>
 
         <div className="h-[1px] w-full bg-black/25 sm:mt-16 mt-8"></div>
       </div>
-      <div className="absolute left-0 -top-36 overflow-hidden -z-20">
-        <img src={images.design3} alt="" />
+      <div className="absolute left-0 -top-36 overflow-hidden -z-20 ">
+        <img src={images.design3} alt="" className="md:w-60 w-[150px]" />
       </div>
     </div>
   );

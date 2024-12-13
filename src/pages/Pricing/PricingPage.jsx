@@ -21,7 +21,7 @@ const PricingPage = () => {
       <PricingText />
       <PricingComp />
       <ContactForm />
-      <FooterMosque />
+      {/* <FooterMosque /> */}
       <Footer />
       <WhatsappIcon />
     </div>

@@ -4,6 +4,7 @@ import icons from "../../assets/icons/icons";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
 const Choose = () => {
   const chooseItems = [
@@ -75,7 +76,7 @@ const Choose = () => {
         <img
           src={images.chooseImg}
           alt=""
-          className="absolute top-[41%] z-50"
+          className="absolute bottom-[30.9%] z-50"
         />
       </div> */}
 
@@ -106,41 +107,46 @@ const Choose = () => {
           </p>
         </div>
 
-        <div className="w-full mt-12">
-          <Slider {...settings}>
-            {chooseItems.map((item, index) => (
-              <div key={index} className="flex flex-row items-center">
-                <div className="flex flex-col gap-6 items-center relative">
-                  <div className="p-4 rounded-full border-2 border-brownColor">
-                    <img src={item.icon} alt="" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg max-w-[160px] text-center">
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  {(index < 2 || (index >= 2 && index < 4)) && (
-                    <div className="absolute top-10 -right-[75%] w-[100%] mx-auto h-0.5 overflow-hidden">
-                      <div
-                        className="w-full h-full  mx-auto"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(to right, #DB9E30 50%, transparent 50%)",
-                        }}
-                      />
-                    </div>
-                  )}
+        <div className="w-full mt-12 flex justify-center flex-wrap md:gap-6  gap-3">
+          {/* <Slider {...settings}> */}
+          {chooseItems.map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-row items-start justify-between px-6 md:py-8 py-6 hover:shadow-2xl hover:rounded-2xl transition-all duration-300"
+            >
+              <div className="flex flex-col gap-6 items-center relative min-[1600px]:min-w-60  min-[1350px]:min-w-48 min-w-40">
+                <div className="p-4 rounded-full border-2 border-brownColor">
+                  <img src={item.icon} alt="" className="" />
                 </div>
+                <div>
+                  <h3 className="text-lg  max-w-[160px] text-center">
+                    {item.title}
+                  </h3>
+                </div>
+
+                {/* {(index < 2 || (index >= 2 && index < 4)) && (
+                  <div className="absolute top-10 right-[85%] left-[85%] w-[100%] mx-auto h-0.5 overflow-hidden">
+                    <div
+                      className="w-full h-full  mx-auto"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(to right, #DB9E30 50%, transparent 50%)",
+                      }}
+                    />
+                  </div>
+                )} */}
               </div>
-            ))}
-          </Slider>
+            </div>
+          ))}
+          {/* </Slider> */}
         </div>
 
         <div className="mt-12">
-          <button className="py-3 px-6 bg-buttonBg text-white rounded-full">
-            View More
-          </button>
+          <SecondaryButton
+            label="View More"
+            className="bg-[#DB9E30]"
+            buttonBg="bg-buttonBg text-white"
+          />
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import ContactPage from "./pages/ContactPage/ContactPage";
 import { Toaster } from "react-hot-toast";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import EnrollmentPage from "./pages/EnrollmentPage/EnrollmentPage";
+import ThankYouPage from "./pages/ThankYouPage/ThankYouPage";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/courses/:slug" element={<CoursePage />} />
-          <Route path="/enrollment-form" element={<EnrollmentPage />} />
+          <Route path="/enrollment-form/:id" element={<EnrollmentPage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -25,7 +25,13 @@ const MobileNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    // Close the dropdown whenever the menu is toggled
+    if (isOpen) {
+      setOpenDropdown(null);
+    }
+  };
   const toggleDropdown = (title) => {
     setOpenDropdown(openDropdown === title ? null : title);
   };
@@ -93,6 +99,7 @@ const MobileNavigation = () => {
                           <li key={dropdownItem.title}>
                             <Link
                               to={dropdownItem.link}
+                              onClick={toggleMenu}
                               className="block py-2 px-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                             >
                               {dropdownItem.title}

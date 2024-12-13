@@ -46,7 +46,10 @@ const PricingComp = () => {
   ];
 
   return (
-    <div className="w-full px-6 py-12 overflow-x-hidden relative bg-pricingCompBg">
+    <div
+      className="w-full px-6 py-12 overflow-x-hidden relative bg-pricingCompBg"
+      id="pricingComp"
+    >
       <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-8">
         <div>
           <h3 className="lg:text-4xl md:text-2xl text-2xl text-center">

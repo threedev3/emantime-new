@@ -1,4 +1,5 @@
 import React from "react";
+import { handleScroll } from "../../utils/scrollToElement";
 
 const PricingCard = ({ pricing }) => {
   return (
@@ -17,7 +18,9 @@ const PricingCard = ({ pricing }) => {
 
       <ul className="flex flex-col gap-4 items-center min-h-28 relative">
         {pricing.features.map((feature, index) => (
-          <li className="text-xl group-hover:text-white">{feature}</li>
+          <li className="text-xl group-hover:text-white" key={index}>
+            {feature}
+          </li>
         ))}
       </ul>
 
@@ -25,7 +28,10 @@ const PricingCard = ({ pricing }) => {
         {pricing.price}
       </h4>
 
-      <button className="bg-black py-3 px-6 rounded-full text-white text-lg font-semibold group-hover:text-black group-hover:bg-white relative">
+      <button
+        className="bg-black py-3 px-6 rounded-full text-white text-lg font-semibold group-hover:text-black group-hover:bg-white relative"
+        onClick={() => handleScroll("contact")}
+      >
         Sign Up Today!
       </button>
     </div>

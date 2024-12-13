@@ -24,12 +24,12 @@ const CourseHero = ({ title, text, boldTitle, image }) => {
           </div>
 
           <div>
-            <h3 className="text-white lg:text-5xl md:text-4xl text-3xl leading-tight text-center poppins-bold max-w-md">
+            <h3 className="text-white xl:text-5xl md:text-4xl text-3xl leading-tight text-center poppins-bold max-w-md">
               {boldTitle} <span className="">{title}</span>
             </h3>
           </div>
           <div>
-            <p className="text-white min-[1166px]:text-lg min-[1100px]:text-base text-sm text-center max-w-md">
+            <p className="text-white min-[1166px]:text-lg min-[1100px]:text-base text-base text-center min-[1166px]:max-w-md max-w-lg">
               {text}
             </p>
           </div>

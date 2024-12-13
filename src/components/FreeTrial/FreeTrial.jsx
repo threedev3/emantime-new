@@ -1,5 +1,6 @@
 import React from "react";
 import images from "../../assets/img/images";
+import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
 const FreeTrial = () => {
   return (
@@ -19,9 +20,11 @@ const FreeTrial = () => {
           </div>
 
           <div>
-            <button className="bg-buttonBg py-3 px-6 rounded-full text-white">
-              Book Your Free Trial
-            </button>
+            <SecondaryButton
+              label="Book Your Free Trial"
+              className="bg-[#DB9E30]"
+              buttonBg="bg-buttonBg text-white"
+            />
           </div>
         </div>
       </div>

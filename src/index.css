@@ -48,6 +48,7 @@ html {
   border: none;
   background-color: #d9d9d9 !important;
   color: #ffffff;
+  height: 40px !important;
 }
 .react-international-phone-country-selector-button {
   padding: 0px 0px !important;

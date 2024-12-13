@@ -37,6 +37,7 @@ const coursesData = {
       },
       // Add more points...
     ],
+    bgColor: "from-[#F8F8F8] to-[#DBDBDB]",
     reverseLearn: false,
     courseFor: [
       "Students with basic Quran reading skills who want to enhance their recitation.",
@@ -105,6 +106,7 @@ const coursesData = {
       },
       // Add more points...
     ],
+    bgColor: "from-[#F8F8F8] to-[#DBDBDB]",
     reverseLearn: true,
     courseFor: [
       "Beginners starting their Arabic language journey.",
@@ -167,6 +169,7 @@ const coursesData = {
         icon: images.islamic.learnIcon4Islamic,
       },
     ],
+    bgColor: "from-[#F8F8F8] to-[#DBDBDB]",
     reverseLearn: false,
     courseFor: [
       "Parents who want to provide a strong Islamic foundation for their families.",

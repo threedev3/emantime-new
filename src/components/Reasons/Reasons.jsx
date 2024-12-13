@@ -116,52 +116,41 @@ const Reasons = () => {
           </p>
         </div>
 
-        <div className="w-full mt-12">
-          <Slider {...settings}>
-            {reasonItems.map((item, index) => (
-              <div
-                key={index}
-                className={`min-h-80 w-full relative group ${
-                  [0, 2, 4].includes(index) ? "min-[620px]:mt-12" : ""
-                }`}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                // style={{
-                //   backgroundColor:
-                //     hoveredIndex === index ? "#DB9E30" : "transparent",
-                //   transition: "background-color 0.3s ease-in-out", // Smooth transition for inline styles
-                // }}
-              >
-                <InlineSvg
-                  url={images.cardImgSvg}
-                  color={svgColor}
-                  hoverColor={svgHoverColor}
-                  isHovered={hoveredIndex === index}
-                  className="mx-auto w-[96%]"
-                />
-                {/* <img
-                  src={images.cardImgSvg}
-                  alt=""
-                  className="mx-auto w-[96%]"
-                /> */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-8">
-                  <div className="">
-                    <img src={item.icon} alt="" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl max-w-[160px] text-center font-semibold group-hover:text-white">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <div>
-                    <p className="text-base text-center max-w-[90%] mx-auto group-hover:text-white">
-                      {item.description}
-                    </p>
-                  </div>
+        <div className="flex flex-row min-[1032px]:justify-around justify-center items-center gap-2 flex-wrap w-full ">
+          {reasonItems.map((item, index) => (
+            <div
+              key={index}
+              className={`min-h-60 min-[1600px]:w-[300px] min-[540px]:w-[240px] w-full relative group ${
+                [0, 2, 4].includes(index)
+                  ? "xl:mt-16 lg:mt-12 md:mt-0 mt-0"
+                  : ""
+              }`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <InlineSvg
+                url={images.cardImgSvg}
+                color={svgColor}
+                hoverColor={svgHoverColor}
+                isHovered={hoveredIndex === index}
+                className="mx-auto w-[96%]"
+              />
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center xl:gap-6 min-[540px]:gap-5 gap-10">
+                <img src={item.icon} alt="" />
+                <div>
+                  <h3 className="text-xl max-w-[160px] text-center font-semibold group-hover:text-white">
+                    {item.title}
+                  </h3>
+                </div>
+                <div>
+                  <p className="min-[1600px]:text-base text-sm text-center max-w-[80%] mx-auto group-hover:text-white text-black/65">
+                    {item.description}
+                  </p>
                 </div>
               </div>
-            ))}
-          </Slider>
+            </div>
+          ))}
         </div>
       </div>
     </div>

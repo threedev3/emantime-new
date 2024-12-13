@@ -4,6 +4,7 @@ import icons from "../../assets/icons/icons";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
 const CourseFeatures = ({ keyFeatures }) => {
   var settings = {
@@ -59,41 +60,46 @@ const CourseFeatures = ({ keyFeatures }) => {
           </h3>
         </div>
 
-        <div className="w-full mt-12">
-          <Slider {...settings}>
-            {keyFeatures.map((item, index) => (
-              <div key={index} className="flex flex-row items-center">
-                <div className="flex flex-col gap-6 items-center relative">
-                  <div className="p-4 rounded-full border-2 border-brownColor">
-                    <img src={item.icon} alt="" width={60} />
-                  </div>
-                  <div>
-                    <h3 className="lg:text-lg text-base lg:max-w-[290px] max-w-[200px] text-center">
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  {(index < 2 || (index >= 2 && index < 2)) && (
-                    <div className="absolute top-10 -right-[75%] w-[100%] mx-auto h-0.5 overflow-hidden">
-                      <div
-                        className="w-full h-full  mx-auto"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(to right, #DB9E30 50%, transparent 50%)",
-                        }}
-                      />
-                    </div>
-                  )}
+        <div className="w-full mt-12 flex justify-center flex-wrap min-[1400px]:gap-20 xl:gap-10 lg:gap-4 md:gap-10  gap-3">
+          {/* <Slider {...settings}> */}
+          {keyFeatures.map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-row items-start justify-between min-[1400px]:px-6 px-3 md:py-8 py-6 hover:shadow-2xl hover:rounded-2xl transition-all duration-300"
+            >
+              <div className="flex flex-col gap-6 items-center relative">
+                <div className="p-4 rounded-full border-2 border-brownColor">
+                  <img src={item.icon} alt="" width={60} />
                 </div>
+                <div>
+                  <h3 className="lg:text-lg text-base lg:max-w-[290px] max-w-[260px] text-center">
+                    {item.title}
+                  </h3>
+                </div>
+
+                {/* {(index < 2 || (index >= 2 && index < 2)) && (
+                  <div className="absolute top-10 -right-[75%] w-[100%] mx-auto h-0.5 overflow-hidden">
+                    <div
+                      className="w-full h-full  mx-auto"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(to right, #DB9E30 50%, transparent 50%)",
+                      }}
+                    />
+                  </div>
+                )} */}
               </div>
-            ))}
-          </Slider>
+            </div>
+          ))}
+          {/* </Slider> */}
         </div>
 
         <div className="mt-12">
-          <button className="py-3 px-6 bg-buttonBg text-white rounded-full">
-            View More
-          </button>
+          <SecondaryButton
+            label="View More"
+            className="bg-[#DB9E30]"
+            buttonBg="bg-buttonBg text-white"
+          />
         </div>
       </div>
     </div>

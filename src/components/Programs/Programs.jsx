@@ -80,7 +80,7 @@ const Programs = () => {
   const svgHoverColor = "#DB9E30";
 
   return (
-    <div className="w-full px-6 py-12  overflow-hidden relative">
+    <div className="w-full px-6 xl:py-12 py-6 overflow-hidden relative">
       <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-6">
         <div>
           <h3 className="lg:text-5xl md:text-4xl text-3xl text-center">
@@ -94,67 +94,72 @@ const Programs = () => {
           </p>
         </div>
 
-        <div className="w-full mt-12">
-          <Slider {...settings}>
-            {reasonItems.map((item, index) => (
-              <div
-                key={index}
-                className={`min-h-52 w-full relative group ${
-                  [0, 2, 4].includes(index) ? "min-[620px]:mt-12" : ""
-                }`}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                // style={{
-                //   backgroundColor:
-                //     hoveredIndex === index ? "#DB9E30" : "transparent",
-                //   transition: "background-color 0.3s ease-in-out", // Smooth transition for inline styles
-                // }}
-              >
-                <InlineSvg
-                  url={images.cardImgSvg}
-                  color={svgColor}
-                  hoverColor={svgHoverColor}
-                  isHovered={hoveredIndex === index}
-                  className="mx-auto w-[96%]"
-                />
-                {/* <img
+        <div className="flex flex-row justify-center items-center gap-4 flex-wrap w-full mt-12">
+          {/* <Slider {...settings}> */}
+          {reasonItems.map((item, index) => (
+            <div
+              key={index}
+              className={`min-h-52 w-[380px] relative group  ${
+                [0, 2, 4].includes(index)
+                  ? "xl:mt-24 lg:mt-12 md:mt-0 mt-0"
+                  : ""
+              }`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              // style={{
+              //   backgroundColor:
+              //     hoveredIndex === index ? "#DB9E30" : "transparent",
+              //   transition: "background-color 0.3s ease-in-out", // Smooth transition for inline styles
+              // }}
+            >
+              <InlineSvg
+                url={images.cardImgSvg}
+                color={svgColor}
+                hoverColor={svgHoverColor}
+                isHovered={hoveredIndex === index}
+                className="mx-auto w-[96%]"
+              />
+              {/* <img
                   src={images.cardImgSvg}
                   alt=""
                   className="mx-auto w-[96%]"
                 /> */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center min-[1500px]:gap-8 xl:gap-4 min-[960px]:gap-3 md:gap-8 gap-4">
-                  <div className="">
-                    {hoveredIndex === index ? (
-                      <img src={images.arabic3} alt="" />
-                    ) : (
-                      <img src={images.arabic4} alt="" />
-                    )}
-                  </div>
-                  <div>
-                    <h3 className="text-xl max-w-[200px] text-center font-semibold group-hover:text-white">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <div>
-                    <ul className="text-center min-[1500px]:max-w-[90%] max-w-[80%] mx-auto flex flex-col xl:gap-2 gap-1">
-                      {item.description.map((item, index) => (
-                        <li className="xl:text-sm min-[960px]:text-xs min-[716px]:text-sm text-xs group-hover:text-white">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center min-[1500px]:gap-8 xl:gap-4 min-[960px]:gap-3 md:gap-8 gap-4">
+                <div className="">
+                  {hoveredIndex === index ? (
+                    <img src={images.arabic3} alt="" />
+                  ) : (
+                    <img src={images.arabic4} alt="" />
+                  )}
+                </div>
+                <div>
+                  <h3 className="text-xl max-w-[200px] text-center font-semibold group-hover:text-white">
+                    {item.title}
+                  </h3>
+                </div>
+                <div>
+                  <ul className="text-center min-[1500px]:max-w-[90%] max-w-[80%] mx-auto flex flex-col xl:gap-2 gap-1">
+                    {item.description.map((item, index) => (
+                      <li
+                        className="xl:text-sm min-[960px]:text-sm min-[716px]:text-sm min-[414px]:text-sm text-xs group-hover:text-white"
+                        key={index}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            ))}
-          </Slider>
+            </div>
+          ))}
+          {/* </Slider> */}
         </div>
 
         <div className="h-[1px] w-full bg-black/25 sm:mt-12 mt-8"></div>
       </div>
 
       <div className="absolute right-0 top-0 overflow-hidden -z-10">
-        <img src={images.design1} alt="" />
+        <img src={images.design1} alt="" className="md:w-60 w-[150px]" />
       </div>
     </div>
   );

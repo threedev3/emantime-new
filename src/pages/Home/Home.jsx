@@ -28,7 +28,7 @@ const Home = () => {
       <Testimonials />
       <FreeTrial />
       <ContactForm />
-      <FooterMosque />
+      {/* <FooterMosque /> */}
       <Footer />
       <WhatsappIcon />
     </div>

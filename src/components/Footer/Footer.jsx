@@ -30,11 +30,11 @@ const Footer = () => {
               <img
                 src={images.footerLogo}
                 alt=""
-                className="w-40 object-contain"
+                className="xl:w-40 w-36 object-contain"
               />
             </div>
             <div>
-              <p className="text-white max-w-[300px]">
+              <p className="text-white max-w-[300px] xl:text-base text-sm">
                 We are available 24/7, and the sign-up process is extremely
                 simple! For all new students, we provide 3 days Free trial of
                 Quran Classes.
@@ -44,49 +44,53 @@ const Footer = () => {
 
           <div className="flex flex-col sm:gap-12 gap-8">
             <div className="relative">
-              <h3 className="text-white text-xl font-semibold">Quick Links</h3>
+              <h3 className="text-white xl:text-xl text-lg font-semibold">
+                Quick Links
+              </h3>
               <div className="absolute w-16 h-1 bg-white rounded-full mt-2"></div>
             </div>
 
-            <ul className="flex flex-col gap-4">
-              <li className="text-white text-base">
+            <ul className="flex flex-col gap-4 ">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/">Home</Link>
               </li>
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/courses/tajweed">Tajweed Mastery</Link>
               </li>
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/courses/arabic">Arabic Language</Link>
               </li>
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/courses/islamic-studies">Islamic Studies</Link>
               </li>
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/pricing">Pricing</Link>
               </li>
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/contact">Contact Us</Link>
               </li>
             </ul>
           </div>
           <div className="flex flex-col sm:gap-12 gap-8">
             <div className="relative">
-              <h3 className="text-white text-xl font-semibold">Quick Links</h3>
+              <h3 className="text-white xl:text-xl text-lg font-semibold">
+                Quick Links
+              </h3>
               <div className="absolute w-16 h-1 bg-white rounded-full mt-2"></div>
             </div>
 
             <ul className="flex flex-col gap-4">
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/">Privacy Policy</Link>
               </li>
-              <li className="text-white text-base">
+              <li className="text-white xl:text-base text-sm">
                 <Link to="/courses">Terms & Conditions</Link>
               </li>
             </ul>
           </div>
           <div className="flex flex-col sm:gap-12 gap-8">
             <div className="relative">
-              <h3 className="text-white text-xl font-semibold">
+              <h3 className="text-white xl:text-xl text-lg font-semibold">
                 Official Info
               </h3>
               <div className="absolute w-16 h-1 bg-white rounded-full mt-2"></div>
@@ -95,19 +99,25 @@ const Footer = () => {
             <div className="flex flex-col gap-4">
               <div className="flex flex-row gap-3 items-center">
                 <img src={icons.whatsappIcon} alt="" />
-                <p className="text-white text-base">+44 20 3289 4228</p>
+                <p className="text-white xl:text-base text-sm">
+                  +44 20 3289 4228
+                </p>
               </div>
               <div className="flex flex-row gap-3 items-center">
                 <img src={icons.phoneIcon} alt="" />
-                <p className="text-white text-base">+1 551-253-3039</p>
+                <p className="text-white xl:text-base text-sm">
+                  +1 551-253-3039
+                </p>
               </div>
               <div className="flex flex-row gap-3 items-center">
                 <img src={icons.email} alt="" />
-                <p className="text-white text-base">support@emantime.com</p>
+                <p className="text-white xl:text-base text-sm">
+                  support@emantime.com
+                </p>
               </div>
               <div className="flex flex-row gap-3 items-center">
                 <img src={icons.location} alt="" />
-                <p className="text-white text-base max-w-[280px]">
+                <p className="text-white xl:text-base text-sm max-w-[280px]">
                   20-22 , Wenlock Road , N1 7GU , London, UK
                 </p>
               </div>
@@ -118,7 +128,7 @@ const Footer = () => {
         <div className="h-[1px] w-full bg-white/35 sm:mt-12 mt-8"></div>
 
         <div className="mt-6">
-          <p className="text-white sm:text-base text-sm text-center">
+          <p className="text-white xl:text-base text-sm text-center">
             © 2024 EmanTime. All rights reserved
           </p>
         </div>

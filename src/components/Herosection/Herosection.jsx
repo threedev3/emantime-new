@@ -25,7 +25,7 @@ const Herosection = () => {
     <div className="relative z-10">
       <div
         // className="w-full xl:h-[120vh] min-[1212px]:h-[95vh] min-[1168px]:h-[90vh] min-[1090px]:h-[85vh] lg:bg-bottom bg-no-repeat min-[1450px]:bg-cover min-[1168px]:bg-cover lg:bg-cover bg-cover min-[1600px]:bg-bottom bg-center"
-        className="bg-cover min-[1500px]:h-[100vh] xl:h-[110vh] lg:h-[640px] min-[900px]:h-[570px] min-[540px]:h-[500px] h-[600px] bg-header"
+        className="bg-cover xl:h-custom lg:h-[600px] min-[900px]:h-[570px] min-[540px]:h-[500px] h-[600px] bg-header"
         style={{
           backgroundImage: `url('${images.header}')`,
           // backgroundPosition: "-445px bottom",
@@ -36,15 +36,15 @@ const Herosection = () => {
 
         <div className="px-6 w-full ">
           <div className="flex lg:justify-between justify-center items-start gap-6 max-w-[1600px] mx-auto">
-            <div className="flex flex-col min-[1416px]:gap-6 gap-4 min-[1450px]:mt-16 min-[1166px]:mt-8 mt-4">
+            <div className="flex flex-col min-[1416px]:gap-5 gap-3 min-[1450px]:mt-4 min-[1166px]:mt-4 sm:mt-4 min-[540px]:mt-0 mt-8">
               <img
                 src={images.tasmiyah}
                 alt=""
-                className="aspect-auto xl:w-80 sm:w-60 w-48 lg:mx-0 mx-auto"
+                className=" min-[1500px]:w-72 xl:w-[270px] sm:w-60 w-48 lg:mx-0 mx-auto object-contain"
               />
 
               <div>
-                <h3 className="text-white min-[1416px]:text-[64px] min-[1166px]:text-6xl lg:text-5xl sm:text-3xl text-2xl poppins-light sm:max-w-[600px] max-w-[300px] mx-auto leading-tight lg:text-start text-center">
+                <h3 className="text-white min-[1416px]:text-[64px] min-[1166px]:text-[52px] lg:text-5xl sm:text-3xl text-2xl poppins-light min-[1400px]:max-w-[600px] sm:max-w-[560px] max-w-[300px] lg:mx-0 mx-auto leading-tight lg:text-start text-center">
                   Connecting Hearts to the{" "}
                   <span className="poppins-bold">Quran</span>
                 </h3>
@@ -61,6 +61,7 @@ const Herosection = () => {
                 text="Book Your Free Trial Class Now"
                 className="bg-white text-heroCta lg:mx-0 mx-auto"
                 iconBg="bg-buttonBg/20"
+                className2="group-hover:opacity-20 bg-[#ffffff]"
               />
             </div>
 
@@ -68,7 +69,7 @@ const Herosection = () => {
               <img
                 src={images.heroImg}
                 alt=""
-                className="object-contain -mt-12 min-[1600px]:w-[650px] min-[1500px]:w-[660px] min-[1450px]:w-[630px] xl:w-[580px] w-[560px]"
+                className="object-contain min-[1450px]:-mt-[140px] xl:-mt-[100px] -mt-[74px] min-[1600px]:w-[700px] min-[1500px]:w-[680px] min-[1450px]:w-[640px] xl:w-[530px] w-[560px]"
               />
 
               <HeroStats
@@ -78,7 +79,7 @@ const Herosection = () => {
 
               <HeroStats
                 stats={stats[1]}
-                className="absolute bottom-[16%] left-[0%]"
+                className="absolute bottom-[19%] left-[0%]"
               />
             </div>
           </div>

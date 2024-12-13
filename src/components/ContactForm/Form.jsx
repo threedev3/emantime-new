@@ -5,12 +5,28 @@ import Select from "react-select";
 import { toast } from "react-hot-toast";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Form = () => {
-  const [name, setName] = useState("");
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL_LOCAL;
+
+  const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [courses, setCourses] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  // API service for submitting demo lead
+  const submitDemoLead = async (data) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/webLeads/demo`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Error submitting demo lead:", error);
+      throw error;
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -18,15 +34,17 @@ const Form = () => {
 
   const courseOptions = [
     { value: "Tajweed Mastery", label: "Tajweed Mastery" },
+    { value: "Quran Reading", label: "Quran Reading" },
     { value: "Arabic Language", label: "Arabic Language" },
+    { value: "Basic Qaida", label: "Basic Qaida" },
     { value: "Islamic Studies", label: "Islamic Studies" },
+    { value: "One-to-One Counseling", label: "One-to-One Counseling" },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate fields
-    if (!name.trim()) {
+    if (!full_name.trim()) {
       toast.error("Full Name is required");
       return;
     }
@@ -52,15 +70,37 @@ const Form = () => {
       return;
     }
 
-    // Success
-    toast.success("Form submitted successfully!");
-    navigate("/enrollment-form");
-    console.log({
-      name,
-      email,
-      phone,
-      courses: courses.map((course) => course.value),
-    });
+    try {
+      setIsLoading(true);
+
+      const formData = {
+        full_name,
+        email,
+        phone,
+        courses: courses.map((course) => course.value),
+      };
+
+      const response = await submitDemoLead(formData);
+
+      // Extract the ID from the API response
+      const leadId = response.data?._id; // Ensure the ID is retrieved safely
+
+      if (!leadId) {
+        throw new Error("Failed to retrieve lead ID.");
+      }
+
+      setIsLoading(false);
+
+      toast.success("Form submitted successfully!");
+
+      // navigate(`/enrollment-form/${leadId}`);
+      window.location.href = `/enrollment-form/${leadId}`;
+
+      console.log("Submitted lead:", response);
+    } catch (error) {
+      toast.error("Failed to submit form. Please try again.");
+      setIsLoading(false);
+    }
   };
   return (
     <form
@@ -71,8 +111,8 @@ const Form = () => {
         type="text"
         className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"
         placeholder="Full Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={full_name}
+        onChange={(e) => setFullName(e.target.value)}
       />
 
       <div className="w-80 relative">
@@ -90,11 +130,7 @@ const Form = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      {/* <input
-            type="text"
-            className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"
-            placeholder="Full Name"
-          /> */}
+
       <div className="w-80">
         <Select
           options={courseOptions}
@@ -109,6 +145,8 @@ const Form = () => {
               borderWidth: 1,
               borderColor: "rgb(0 0 0 / 0.2)",
               borderRadius: "12px",
+              height: "60px",
+              overflow: "auto",
             }),
             dropdownIndicator: (provided, state) => ({
               ...provided,
@@ -121,16 +159,25 @@ const Form = () => {
               ...base,
               color: "rgba(0, 0, 0, 0.65)",
             }),
+            menu: (base) => ({
+              ...base,
+              position: "absolute",
+              zIndex: 100,
+            }),
           }}
           value={courses}
           onChange={setCourses}
         />
       </div>
-      <input
+      <button
         type="submit"
-        className="bg-gradient-to-r from-gradTwo to-gradThree text-white text-xl py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80 cursor-pointer"
-        value="Submit"
-      />
+        className={`bg-gradient-to-r from-gradTwo to-gradThree text-white text-xl py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80  ${
+          isLoading ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
+        disabled={isLoading}
+      >
+        {isLoading ? "Submitting..." : "Submit"}
+      </button>
     </form>
   );
 };

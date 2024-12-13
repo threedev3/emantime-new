@@ -6,14 +6,20 @@ import TimePicker from "../TimePIcker/TimePicker";
 import { Dialog, DialogTitle } from "@headlessui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const EnrollmentForm = () => {
+const EnrollmentForm = ({ demoId }) => {
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL_LOCAL;
+
   const [timezones, setTimezones] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     // Enrollment Details
     enrollment_type: "", // Multi-select
-    number_of_students: 1,
+    number_of_students: null,
     applicant_gender: "",
     student_gender: "",
     learning_history: "",
@@ -25,7 +31,10 @@ const EnrollmentForm = () => {
       time: "",
     },
     country: "",
-    time_zone: null,
+    time_zone: {
+      name: "",
+      value: "",
+    },
     instruction_language: "",
     other_language: "",
     learning_goals: "",
@@ -33,15 +42,8 @@ const EnrollmentForm = () => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  //   const [trialLessonSlot, setTrialLessonSlot] = useState({
-  //     date: "",
-  //     time: "",
-  //   });
-
-  //   useEffect(() => {
-  //     console.log("Trial Lesson Slot", trialLessonSlot);
-  //   }, [trialLessonSlot]);
+  const [timeSlots, setTimeSlots] = useState([]);
+  const navigate = useNavigate();
 
   const generateTimeSlots = () => {
     const slots = [];
@@ -63,34 +65,6 @@ const EnrollmentForm = () => {
 
     return slots;
   };
-
-  const timeSlots = generateTimeSlots();
-
-  const handleDateChange = (date) => {
-    setFormData((prev) => ({
-      ...prev,
-      trial_lesson_slot: {
-        ...prev.trial_lesson_slot,
-        date: date,
-      },
-    }));
-  };
-
-  const handleTimeSelect = (time) => {
-    setFormData((prev) => ({
-      ...prev,
-      trial_lesson_slot: {
-        ...prev.trial_lesson_slot,
-        time: time,
-      },
-    }));
-    setIsModalOpen(false);
-  };
-
-  const countries = Country.getAllCountries().map((country) => ({
-    value: country.isoCode,
-    label: country.name,
-  }));
 
   const customStyles = {
     control: (base) => ({
@@ -139,138 +113,275 @@ const EnrollmentForm = () => {
     { value: "Both", label: "Both" },
   ];
 
-  // Handler functions to update form state
-  const handleEnrollmentTypeChange = (selectedOption) => {
+  const handleInputChange = (e, field) => {
+    const { value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      enrollment_type: selectedOption ? selectedOption.value : "",
+      [field]: type === "number" ? parseInt(value) || 1 : value,
     }));
   };
 
-  const handleNumberOfStudentsChange = (e) => {
+  // Handler for radio button changes
+  const handleRadioChange = (e, field) => {
     setFormData((prev) => ({
       ...prev,
-      number_of_students: parseInt(e.target.value) || 1,
+      [field]: e.target.value,
     }));
   };
 
-  const handleApplicantGenderChange = (selectedOption) => {
+  const handleSelectorChange = (field, selectedOption) => {
+    if (field === "country") {
+      const selectedCountry = Country.getCountryByCode(selectedOption.value);
+
+      const countryTimezones = selectedCountry?.timezones || [];
+
+      const filteredTimezones = Array.from(
+        countryTimezones
+          .reduce((map, item) => {
+            if (!map.has(item.tzName)) {
+              map.set(item.tzName, {
+                label: item.tzName,
+                value: item.gmtOffsetName,
+              });
+            }
+            return map;
+          }, new Map())
+          .values()
+      );
+
+      setTimezones(filteredTimezones);
+
+      setFormData((prev) => ({
+        ...prev,
+        country: selectedOption.value, // Update country
+        time_zone: { name: "", value: "" }, // Reset timezone
+      }));
+    } else if (field === "time_zone") {
+      setFormData((prev) => ({
+        ...prev,
+        time_zone: {
+          name: selectedOption.label,
+          value: selectedOption.value,
+        },
+      }));
+    }
+  };
+
+  // Handler for select inputs with a single value
+  const handleSingleSelectChange = (selectedOption, field) => {
     setFormData((prev) => ({
       ...prev,
-      applicant_gender: selectedOption ? selectedOption.value : "",
+      [field]: selectedOption ? selectedOption.value : "",
     }));
   };
 
-  const handleStudentGenderChange = (selectedOption) => {
+  // Handler for multi-select inputs
+  const handleMultiSelectChange = (newValues, fieldName) => {
     setFormData((prev) => ({
       ...prev,
-      student_gender: selectedOption ? selectedOption.value : "",
+      [fieldName]: newValues, // Update the specific field
     }));
   };
 
-  const handleLearningHistoryChange = (e) => {
+  // Date and time handlers
+  const handleDateChange = (date) => {
+    // Generate time slots when date is selected
+    const slots = generateTimeSlots();
+    setTimeSlots(slots);
+
     setFormData((prev) => ({
       ...prev,
-      learning_history: e.target.value,
+      trial_lesson_slot: {
+        ...prev.trial_lesson_slot,
+        date: date,
+      },
     }));
   };
 
-  const handleInterestedCoursesChange = (selectedOptions) => {
+  const handleTimeSelect = (time) => {
     setFormData((prev) => ({
       ...prev,
-      interested_courses: selectedOptions
-        ? selectedOptions.map((option) => option.value)
-        : [],
+      trial_lesson_slot: {
+        ...prev.trial_lesson_slot,
+        time: time,
+      },
     }));
+    setIsModalOpen(false);
   };
 
-  const handleDaysPerWeekChange = (selectedOption) => {
-    setFormData((prev) => ({
-      ...prev,
-      days_per_week: selectedOption ? selectedOption.value : "",
-    }));
+  // Countries for select
+  const countries = Country.getAllCountries().map((country) => ({
+    value: country.isoCode,
+    label: country.name,
+  }));
+
+  const updateDemoLead = async (data) => {
+    try {
+      const response = await axios.put(
+        `${BASE_URL}/webLeads/demo/${demoId}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error submitting demo lead:", error);
+      throw error;
+    }
   };
 
-  const handleTeacherGenderChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      teacher_gender: e.target.value,
-    }));
+  // // Form validation
+  // const validateForm = () => {
+  //   const requiredFields = [
+  //     "enrollment_type",
+  //     "number_of_students",
+  //     "applicant_gender",
+  //     "student_gender",
+  //     "learning_history",
+  //     "interested_courses",
+  //     "days_per_week",
+  //     "teacher_gender",
+  //     "instruction_language",
+  //     "trial_lesson_slot.date",
+  //     "trial_lesson_slot.time",
+  //     "country",
+  //     "time_zone.name",
+  //     "learning_goals",
+  //     "specific_needs",
+  //   ];
+
+  //   for (let field of requiredFields) {
+  //     const value = field.includes(".")
+  //       ? formData[field.split(".")[0]][field.split(".")[1]]
+  //       : formData[field];
+
+  //     if (!value || (Array.isArray(value) && value.length === 0)) {
+  //       toast.error(`Please fill in the ${field} field`);
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // };
+
+  const validateForm = () => {
+    const requiredFields = [
+      "enrollment_type",
+      "number_of_students",
+      "applicant_gender",
+      "student_gender",
+      "learning_history",
+      "interested_courses",
+      "days_per_week",
+      "teacher_gender",
+      "instruction_language",
+      "trial_lesson_slot.date",
+      "trial_lesson_slot.time",
+      "country",
+      "time_zone.name",
+      "learning_goals",
+      "specific_needs",
+    ];
+
+    const fieldNames = {
+      enrollment_type: "Enrollment Type",
+      number_of_students: "Number of Students",
+      applicant_gender: "Applicant Gender",
+      student_gender: "Student Gender",
+      learning_history: "Learning History",
+      interested_courses: "Interested Courses",
+      days_per_week: "Days Per Week",
+      teacher_gender: "Teacher Gender",
+      instruction_language: "Instruction Language",
+      "trial_lesson_slot.date": "Trial Lesson Date",
+      "trial_lesson_slot.time": "Trial Lesson Time",
+      country: "Country",
+      "time_zone.name": "Time Zone",
+      learning_goals: "Learning Goals",
+      specific_needs: "Specific Needs",
+    };
+
+    for (let field of requiredFields) {
+      const value = field.includes(".")
+        ? formData[field.split(".")[0]][field.split(".")[1]]
+        : formData[field];
+
+      if (!value || (Array.isArray(value) && value.length === 0)) {
+        const fieldName = fieldNames[field] || field; // Fallback to the raw field name if no mapping is provided
+        toast.error(`Please fill in the ${fieldName} field`);
+        return false;
+      }
+    }
+
+    // Additional validation for "Other" option in instruction_language
+    if (
+      formData.instruction_language === "Other" &&
+      (!formData.other_language || formData.other_language.trim() === "")
+    ) {
+      toast.error("Please fill in the Other Language field");
+      return false;
+    }
+    return true;
   };
 
-  //   const handleDateChange = (date) => {
-  //     setFormData(prev => ({
-  //       ...prev,
-  //       trial_lesson_slot: {
-  //         ...prev.trial_lesson_slot,
-  //         date: date
-  //       }
-  //     }));
-  //   };
-
-  //   const handleTimeSelect = (time) => {
-  //     setFormData(prev => ({
-  //       ...prev,
-  //       trial_lesson_slot: {
-  //         ...prev.trial_lesson_slot,
-  //         time: time
-  //       }
-  //     }));
-  //     setIsModalOpen(false);
-  //   };
-
-  const handleCountryChange = (selectedOption) => {
-    setFormData((prev) => ({
-      ...prev,
-      country: selectedOption ? selectedOption.value : "",
-    }));
-  };
-
-  const handleTimeZoneChange = (selectedOptions) => {
-    setFormData((prev) => ({
-      ...prev,
-      time_zone: selectedOptions
-        ? {
-            name: selectedOptions.label,
-            value: selectedOptions.value,
-          }
-        : null,
-    }));
-  };
-
-  const handleInstructionLanguageChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      instruction_language: e.target.value,
-    }));
-  };
-
-  const handleOtherLanguageChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      other_language: e.target.value,
-    }));
-  };
-
-  const handleLearningGoalsChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      learning_goals: e.target.value,
-    }));
-  };
-
-  const handleSpecificNeedsChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      specific_needs: e.target.value,
-    }));
-  };
-
-  // Submit handler (you'll implement API call here)
-  const handleSubmit = (e) => {
+  // Form submission handler
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement your API call to submit formData
-    console.log("Form Data:", formData);
+
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      // Prepare data for submission
+      const submissionData = {
+        ...formData,
+        trial_lesson_slot: {
+          date: formData.trial_lesson_slot.date
+            ? formData.trial_lesson_slot.date
+            : null,
+          time: formData.trial_lesson_slot.time,
+        },
+      };
+
+      const response = await updateDemoLead(submissionData);
+
+      setIsLoading(false);
+
+      toast.success("Enrollment submitted successfully");
+      console.log("Enrollment submitted", response);
+
+      // Reset form data to initial state
+      setFormData({
+        enrollment_type: "", // Multi-select
+        number_of_students: null,
+        applicant_gender: "",
+        student_gender: "",
+        learning_history: "",
+        interested_courses: [],
+        teacher_gender: "",
+        instruction_language: "",
+        other_language: "",
+        days_per_week: "",
+        learning_goals: "",
+        specific_needs: "",
+        country: "",
+        time_zone: {
+          name: "",
+          value: "",
+        },
+        trial_lesson_slot: {
+          date: null,
+          time: "",
+        },
+      });
+
+      // Navigate to the thank-you page
+      navigate("/thank-you");
+    } catch (error) {
+      console.error("Enrollment submission failed", error);
+      toast.error("Failed to submit enrollment. Please try again.");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -288,24 +399,44 @@ const EnrollmentForm = () => {
               <div className="flex flex-col gap-4">
                 <Select
                   options={enrollmentOptions}
+                  value={enrollmentOptions.find(
+                    (option) => option.value === formData.enrollment_type
+                  )}
+                  onChange={(option) =>
+                    handleSingleSelectChange(option, "enrollment_type")
+                  }
                   placeholder="Who are you enrolling for?"
                   className="rounded-xl  placeholder:text-black/65"
                   styles={customStyles}
                 />
                 <input
                   type="number"
+                  value={formData.number_of_students}
+                  onChange={(e) => handleInputChange(e, "number_of_students")}
                   className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 "
                   placeholder="How many students will be enrolling?"
                 />
 
                 <Select
                   options={genderOptions}
+                  value={genderOptions.find(
+                    (option) => option.value === formData.applicant_gender
+                  )}
+                  onChange={(option) =>
+                    handleSingleSelectChange(option, "applicant_gender")
+                  }
                   placeholder="Your Gender"
                   className="rounded-xl  placeholder:text-black/65"
                   styles={customStyles}
                 />
                 <Select
                   options={studentGenderOptions}
+                  value={studentGenderOptions.find(
+                    (option) => option.value === formData.student_gender
+                  )}
+                  onChange={(option) =>
+                    handleSingleSelectChange(option, "student_gender")
+                  }
                   placeholder="Student Gender"
                   className="rounded-xl  placeholder:text-black/65"
                   styles={customStyles}
@@ -329,39 +460,25 @@ const EnrollmentForm = () => {
               </h3>
 
               <div className="flex flex-col gap-6">
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="experience"
-                    value="beginner"
-                    className="form-radio w-5 h-5 accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    No, it’s my first time (Beginner)
-                  </span>
-                </label>
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="experience"
-                    value="intermediate"
-                    className="form-radio w-5 h-5 accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    Yes, at an intermediate level
-                  </span>
-                </label>
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="experience"
-                    value="advanced"
-                    className="form-radio w-5 h-5 accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    Yes, at an advanced level
-                  </span>
-                </label>
+                {[
+                  "No, it's my first time (Beginner)",
+                  "Yes, at an intermediate level",
+                  "Yes, at an advanced level",
+                ].map((level) => (
+                  <label key={level} className="flex items-center space-x-6">
+                    <input
+                      type="radio"
+                      name="learning_history"
+                      value={level}
+                      checked={formData.learning_history === level}
+                      onChange={(e) => handleRadioChange(e, "learning_history")}
+                      className="form-radio w-5 h-5 accent-gradOne"
+                    />
+                    <span className="md:text-lg text-base text-black/65">
+                      {level}
+                    </span>
+                  </label>
+                ))}
               </div>
             </div>
           </div>
@@ -378,72 +495,37 @@ const EnrollmentForm = () => {
                   <span className="poppins-bold">interested</span> in?
                 </h3>
                 <div className="flex flex-col gap-3">
-                  <label className="flex items-center space-x-6">
-                    <input
-                      type="checkbox"
-                      name="tajweed"
-                      value="tajweed"
-                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                    />
-                    <span className="md:text-lg text-base text-black/65">
-                      Tajweed
-                    </span>
-                  </label>
-                  <label className="flex items-center space-x-6">
-                    <input
-                      type="checkbox"
-                      name="quran-reading"
-                      value="quran-reading"
-                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                    />
-                    <span className="md:text-lg text-base text-black/65">
-                      Quran Reading
-                    </span>
-                  </label>
-                  <label className="flex items-center space-x-6">
-                    <input
-                      type="checkbox"
-                      name="arabic-language"
-                      value="arabic-language"
-                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                    />
-                    <span className="md:text-lg text-base text-black/65">
-                      Arabic Language
-                    </span>
-                  </label>
-                  <label className="flex items-center space-x-6">
-                    <input
-                      type="checkbox"
-                      name="qaida"
-                      value="qaida"
-                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                    />
-                    <span className="md:text-lg text-base text-black/65">
-                      Basic Qaida
-                    </span>
-                  </label>
-                  <label className="flex items-center space-x-6">
-                    <input
-                      type="checkbox"
-                      name="islamic"
-                      value="islamic"
-                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                    />
-                    <span className="md:text-lg text-base text-black/65">
-                      Islamic Studies
-                    </span>
-                  </label>
-                  <label className="flex items-center space-x-6">
-                    <input
-                      type="checkbox"
-                      name="one-to-one-counseling"
-                      value="one-to-one-counseling"
-                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                    />
-                    <span className="md:text-lg text-base text-black/65">
-                      One-to-One Counseling
-                    </span>
-                  </label>
+                  {[
+                    "Tajweed Mastery",
+                    "Quran Reading",
+                    "Arabic Language",
+                    "Basic Qaida",
+                    "Islamic Studies",
+                    "One-to-One Counseling",
+                  ].map((course) => (
+                    <label key={course} className="flex items-center space-x-6">
+                      <input
+                        type="checkbox"
+                        name="interested_courses"
+                        value={course}
+                        checked={formData.interested_courses.includes(course)}
+                        onChange={(e) =>
+                          handleMultiSelectChange(
+                            e.target.checked
+                              ? [...formData.interested_courses, course] // Add the course
+                              : formData.interested_courses.filter(
+                                  (item) => item !== course
+                                ), // Remove the course
+                            "interested_courses"
+                          )
+                        }
+                        className="form-checkbox w-5 h-5 accent-gradOne hover:accent-gradOne"
+                      />
+                      <span className="md:text-lg text-base text-black/65">
+                        {course}
+                      </span>
+                    </label>
+                  ))}
                 </div>
               </div>
               <div className="flex flex-col gap-6">
@@ -455,6 +537,12 @@ const EnrollmentForm = () => {
                 <div className="flex flex-col gap-3">
                   <Select
                     options={daysPerWeek}
+                    value={daysPerWeek.find(
+                      (option) => option.value === formData.days_per_week
+                    )}
+                    onChange={(option) =>
+                      handleSingleSelectChange(option, "days_per_week")
+                    }
                     placeholder="Days Per Week"
                     className="rounded-xl  placeholder:text-black/65"
                     styles={customStyles}
@@ -478,39 +566,23 @@ const EnrollmentForm = () => {
               </h3>
 
               <div className="flex flex-col gap-6">
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    Male
-                  </span>
-                </label>
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    Female
-                  </span>
-                </label>
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="no-preference"
-                    className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    No Preference
-                  </span>
-                </label>
+                {["Male", "Female", "No Preference"].map((gender) => (
+                  <label key={gender} className="flex items-center space-x-6">
+                    <input
+                      type="radio"
+                      name="teacher_gender"
+                      value={gender}
+                      checked={formData.teacher_gender === gender}
+                      onChange={(e) => handleRadioChange(e, "teacher_gender")}
+                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
+                    />
+                    <span className="md:text-lg text-base text-black/65">
+                      {gender === "no-preference"
+                        ? "No Preference"
+                        : gender.charAt(0).toUpperCase() + gender.slice(1)}
+                    </span>
+                  </label>
+                ))}
               </div>
             </div>
           </div>
@@ -523,44 +595,32 @@ const EnrollmentForm = () => {
               </h3>
 
               <div className="flex flex-col gap-6">
-                <label className="flex items-center space-x-6">
+                {["Arabic", "English", "Urdu", "Other"].map((language) => (
+                  <label key={language} className="flex items-center space-x-6">
+                    <input
+                      type="radio"
+                      name="instruction_language"
+                      value={language}
+                      checked={formData.instruction_language === language}
+                      onChange={(e) =>
+                        handleRadioChange(e, "instruction_language")
+                      }
+                      className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
+                    />
+                    <span className="md:text-lg text-base text-black/65">
+                      {language.charAt(0).toUpperCase() + language.slice(1)}
+                    </span>
+                  </label>
+                ))}
+                {formData.instruction_language === "Other" && (
                   <input
-                    type="radio"
-                    name="language"
-                    value="arabic"
-                    className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
+                    type="text"
+                    value={formData.other_language}
+                    onChange={(e) => handleInputChange(e, "other_language")}
+                    className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-60"
+                    placeholder="Other"
                   />
-                  <span className="md:text-lg text-base text-black/65">
-                    Arabic
-                  </span>
-                </label>
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="language"
-                    value="english"
-                    className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    English
-                  </span>
-                </label>
-                <label className="flex items-center space-x-6">
-                  <input
-                    type="radio"
-                    name="language"
-                    value="urdu"
-                    className="form-radio w-5 h-5 accent-gradOne hover:accent-gradOne"
-                  />
-                  <span className="md:text-lg text-base text-black/65">
-                    Urdu
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-60"
-                  placeholder="Other"
-                />
+                )}
               </div>
             </div>
 
@@ -591,21 +651,15 @@ const EnrollmentForm = () => {
                   />
                 </div>
 
-                <div>
+                {formData.trial_lesson_slot.date && (
                   <button
-                    onClick={() =>
-                      formData.trial_lesson_slot.date && setIsModalOpen(true)
-                    }
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
                     className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-start text-black/65 w-full"
                   >
                     {formData.trial_lesson_slot.time || "Select a Time"}
                   </button>
-                  {!formData.trial_lesson_slot.date && (
-                    <span className="text-red-600 text-sm">
-                      Please select a date first.
-                    </span>
-                  )}
-                </div>
+                )}
 
                 {isModalOpen && (
                   <Dialog
@@ -621,6 +675,7 @@ const EnrollmentForm = () => {
                         {timeSlots.map((slot) => (
                           <button
                             key={slot}
+                            type="button"
                             onClick={() => handleTimeSelect(slot)}
                             className="py-2 px-4 rounded-lg text-black/80 hover:bg-gradOne hover:text-white transition"
                           >
@@ -639,16 +694,34 @@ const EnrollmentForm = () => {
                 )}
                 <Select
                   options={countries}
+                  value={
+                    countries.find(
+                      (option) => option.value === formData.country
+                    ) || ""
+                  }
+                  onChange={(selectedOption) =>
+                    handleSelectorChange("country", selectedOption)
+                  }
                   placeholder="Please Select Your Country"
                   className="rounded-xl  placeholder:text-black/65"
                   styles={customStyles}
                 />
                 <Select
-                  //   options={genderOptions}
-                  isMulti
+                  options={timezones}
+                  value={
+                    timezones.find(
+                      (option) =>
+                        option.value === formData.time_zone.value &&
+                        option.label === formData.time_zone.name
+                    ) || ""
+                  }
+                  onChange={(selectedOption) =>
+                    handleSelectorChange("time_zone", selectedOption)
+                  }
                   placeholder="Please Select Your Timezone"
                   className="rounded-xl  placeholder:text-black/65"
                   styles={customStyles}
+                  isDisabled={!formData.country}
                 />
               </div>
             </div>
@@ -663,18 +736,22 @@ const EnrollmentForm = () => {
               <div className="flex flex-col gap-6">
                 <input
                   type="text"
+                  value={formData.learning_goals}
+                  onChange={(e) => handleInputChange(e, "learning_goals")}
                   className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-full"
                   placeholder="What are your primary learning goals or expectations?"
                 />
                 <input
                   type="text"
+                  value={formData.specific_needs}
+                  onChange={(e) => handleInputChange(e, "specific_needs")}
                   className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 "
                   placeholder="Do you have any specific learning needs or requirements?"
                 />
               </div>
             </div>
             <div className="md:block hidden w-full">
-              <img src={images.enroll6} alt="" />
+              <img src={images.enroll7} alt="" />
             </div>
           </div>
 
@@ -682,8 +759,9 @@ const EnrollmentForm = () => {
             <button
               type="submit"
               className="bg-gradOne text-white py-3 px-6 rounded-xl hover:bg-opacity-90 transition"
+              disabled={isLoading}
             >
-              Submit Enrollment
+              {isLoading ? "Submitting..." : "Submit Enrollment"}
             </button>
           </div>
         </form>

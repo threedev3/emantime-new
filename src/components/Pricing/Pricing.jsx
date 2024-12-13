@@ -3,6 +3,7 @@ import PricingCard from "./PricingCard";
 import icons from "../../assets/icons/icons";
 import CtaButton from "../CtaButton/CtaButton";
 import images from "../../assets/img/images";
+import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
 const Pricing = () => {
   const priceBullets = [
@@ -57,7 +58,7 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="w-full px-6 py-12 overflow-x-hidden relative">
+    <div className="w-full px-6 xl:py-12 py-6 overflow-x-hidden relative">
       <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-8">
         <div>
           <h3 className="lg:text-5xl md:text-4xl text-3xl text-center poppins-bold">
@@ -104,7 +105,10 @@ const Pricing = () => {
 
           <div className="flex justify-center items-center gap-12 flex-wrap">
             {specialOffer.map((offer, index) => (
-              <div className="flex flex-row min-[620px]:items-center items-start gap-3">
+              <div
+                className="flex flex-row min-[620px]:items-center items-start gap-3"
+                key={index}
+              >
                 <div className="flex-shrink-0">
                   <img src={icons.checkBlack} alt="" width={20} />
                 </div>
@@ -115,22 +119,28 @@ const Pricing = () => {
             ))}
           </div>
 
-          <div className="flex min-[840px]:flex-row flex-col gap-3 justify-center items-center">
+          <div className="flex min-[840px]:flex-row flex-col min-[840px]:gap-3 gap-6 justify-center items-center">
             <CtaButton
               text="Invest In Your Hereafter And Begin Your Journey Today"
               className="bg-brownColor text-white"
               iconBg="bg-white"
+              className2="group-hover:opacity-50 bg-[#DB9E30]"
             />
-            <button className="py-3 px-6 rounded-full shadow-2xl border border-black/10">
+            {/* <button className="py-3 px-6 rounded-full shadow-2xl border border-black/10">
               Claim Your Free Trial Now
-            </button>
+            </button> */}
+            <SecondaryButton
+              label="Claim Your Free Trial Now"
+              className="bg-[#F5E4C5]"
+              buttonBg="bg-white text-black drop-shadow-xl"
+            />
           </div>
         </div>
 
         <div className="h-[1px] w-full bg-black/25 sm:mt-16 mt-10"></div>
       </div>
 
-      <div className="absolute left-0 top-0 overflow-hidden -z-20">
+      <div className="absolute left-0 lg:top-0 top-[20%] overflow-hidden -z-20 md:block hidden">
         <img src={images.design2} alt="" />
       </div>
     </div>

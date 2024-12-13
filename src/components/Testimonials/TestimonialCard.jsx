@@ -4,7 +4,7 @@ import icons from "../../assets/icons/icons";
 
 const TestimonialCard = ({ item }) => {
   return (
-    <div className="bg-white mx-2 min-[540px]:px-6 px-3 py-8 flex flex-col gap-6 items-center shadow-sm border border-black/10 min-[414px]:min-h-[390px] min-h-[410px] relative">
+    <div className="bg-white mx-2 min-[540px]:px-6 px-3 py-8 flex flex-col gap-6 items-center shadow-sm border border-black/10 min-[414px]:min-h-[390px] min-h-[410px] relative w-[440px] overflow-hidden">
       <div className="absolute right-0 top-0 w-28 h-28 overflow-hidden">
         <div className="absolute left-0 bottom-0 w-[200%] h-[200%] bg-emerald-800 rotate-45 transform origin-right " />
       </div>
