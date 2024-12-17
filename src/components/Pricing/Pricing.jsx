@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PricingCard from "./PricingCard";
 import icons from "../../assets/icons/icons";
 import CtaButton from "../CtaButton/CtaButton";
 import images from "../../assets/img/images";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const Pricing = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   const priceBullets = [
     "Our Classes Are Taken By Qualified Arab Teachers",
     "Our Each Session Consist On 30 Minutes And It Is A One-One Session",
@@ -125,6 +128,7 @@ const Pricing = () => {
               className="bg-brownColor text-white"
               iconBg="bg-white"
               className2="group-hover:opacity-50 bg-[#DB9E30]"
+              onClick={() => setOpenModal(true)}
             />
             {/* <button className="py-3 px-6 rounded-full shadow-2xl border border-black/10">
               Claim Your Free Trial Now
@@ -133,6 +137,7 @@ const Pricing = () => {
               label="Claim Your Free Trial Now"
               className="bg-[#F5E4C5]"
               buttonBg="bg-white text-black drop-shadow-xl"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
@@ -143,6 +148,10 @@ const Pricing = () => {
       <div className="absolute left-0 lg:top-0 top-[20%] overflow-hidden -z-20 md:block hidden">
         <img src={images.design2} alt="" />
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

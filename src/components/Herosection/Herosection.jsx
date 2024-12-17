@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import images from "../../assets/img/images";
 import Navbar from "../Navbar/Navbar";
 import CtaButton from "../CtaButton/CtaButton";
 import icons from "../../assets/icons/icons";
 import HeroStats from "../HeroStats/HeroStats";
 import Choose from "../Choose/Choose";
+import TrialModal from "../TrialModal/TrialModal";
 
 const Herosection = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   const stats = [
     {
       icon: icons.heroIcon1,
@@ -25,18 +28,19 @@ const Herosection = () => {
     <div className="relative z-10">
       <div
         // className="w-full xl:h-[120vh] min-[1212px]:h-[95vh] min-[1168px]:h-[90vh] min-[1090px]:h-[85vh] lg:bg-bottom bg-no-repeat min-[1450px]:bg-cover min-[1168px]:bg-cover lg:bg-cover bg-cover min-[1600px]:bg-bottom bg-center"
-        className="bg-cover xl:h-custom lg:h-[600px] min-[900px]:h-[570px] min-[540px]:h-[500px] h-[600px] bg-header"
+        className="bg-cover xl:h-custom lg:h-[510px] min-[900px]:h-[570px] min-[540px]:h-[470px] h-[500px] bg-header bg-gradThree"
         style={{
-          backgroundImage: `url('${images.header}')`,
-          // backgroundPosition: "-445px bottom",
-          // backgroundPosition: "center bottom",
+          // backgroundImage: `url('${images.header}')`,
+          backgroundImage: `url('${images.heroMosque}')`,
+          backgroundPosition: "center top",
+          // backgroundPosition: "center top",
         }}
       >
         <Navbar />
 
         <div className="px-6 w-full ">
           <div className="flex lg:justify-between justify-center items-start gap-6 max-w-[1600px] mx-auto">
-            <div className="flex flex-col min-[1416px]:gap-5 gap-3 min-[1450px]:mt-4 min-[1166px]:mt-4 sm:mt-4 min-[540px]:mt-0 mt-8">
+            <div className="flex flex-col min-[1416px]:gap-5 lg:gap-3 sm:gap-6 gap-4 min-[1450px]:mt-16 min-[1166px]:mt-4 lg:mt-10 sm:mt-14 min-[540px]:mt-4 mt-12">
               <img
                 src={images.tasmiyah}
                 alt=""
@@ -44,7 +48,7 @@ const Herosection = () => {
               />
 
               <div>
-                <h3 className="text-white min-[1416px]:text-[64px] min-[1166px]:text-[52px] lg:text-5xl sm:text-3xl text-2xl poppins-light min-[1400px]:max-w-[600px] sm:max-w-[560px] max-w-[300px] lg:mx-0 mx-auto leading-tight lg:text-start text-center">
+                <h3 className="text-white min-[1416px]:text-[64px] min-[1166px]:text-[52px] lg:text-5xl sm:text-3xl text-2xl poppins-light min-[1400px]:max-w-[600px] sm:max-w-[560px] max-w-[280px] lg:mx-0 mx-auto leading-tight lg:text-start text-center">
                   Connecting Hearts to the{" "}
                   <span className="poppins-bold">Quran</span>
                 </h3>
@@ -62,6 +66,7 @@ const Herosection = () => {
                 className="bg-white text-heroCta lg:mx-0 mx-auto"
                 iconBg="bg-buttonBg/20"
                 className2="group-hover:opacity-20 bg-[#ffffff]"
+                onClick={() => setOpenModal(true)}
               />
             </div>
 
@@ -84,9 +89,12 @@ const Herosection = () => {
             </div>
           </div>
         </div>
+        {openModal ? (
+          <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+        ) : null}
       </div>
 
-      <Choose />
+      {/* <Choose /> */}
     </div>
   );
 };

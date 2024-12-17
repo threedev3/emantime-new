@@ -8,6 +8,7 @@ const CtaButton = ({
   iconBg,
   className2,
   redirect = "contact",
+  onClick,
 }) => {
   return (
     <div className="relative group w-fit lg:mx-0 mx-auto">
@@ -20,7 +21,7 @@ const CtaButton = ({
   hover:-translate-y-1
   active:translate-y-0
         `}
-        onClick={() => handleScroll(redirect)}
+        onClick={onClick}
       >
         <div
           className={` h-10 w-10 rounded-full flex-shrink-0 flex justify-center items-center ${iconBg}`}

@@ -8,7 +8,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const EnrollmentForm = ({ demoId }) => {
   const BASE_URL = import.meta.env.VITE_APP_BASE_URL_LOCAL;
@@ -30,7 +29,10 @@ const EnrollmentForm = ({ demoId }) => {
       date: null,
       time: "",
     },
-    country: "",
+    country: {
+      name: "",
+      value: "",
+    },
     time_zone: {
       name: "",
       value: "",
@@ -43,7 +45,6 @@ const EnrollmentForm = ({ demoId }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeSlots, setTimeSlots] = useState([]);
-  const navigate = useNavigate();
 
   const generateTimeSlots = () => {
     const slots = [];
@@ -153,7 +154,10 @@ const EnrollmentForm = ({ demoId }) => {
 
       setFormData((prev) => ({
         ...prev,
-        country: selectedOption.value, // Update country
+        country: {
+          name: selectedOption.label, // Store the country name
+          value: selectedOption.value, // Store the country code
+        },
         time_zone: { name: "", value: "" }, // Reset timezone
       }));
     } else if (field === "time_zone") {
@@ -227,39 +231,6 @@ const EnrollmentForm = ({ demoId }) => {
       throw error;
     }
   };
-
-  // // Form validation
-  // const validateForm = () => {
-  //   const requiredFields = [
-  //     "enrollment_type",
-  //     "number_of_students",
-  //     "applicant_gender",
-  //     "student_gender",
-  //     "learning_history",
-  //     "interested_courses",
-  //     "days_per_week",
-  //     "teacher_gender",
-  //     "instruction_language",
-  //     "trial_lesson_slot.date",
-  //     "trial_lesson_slot.time",
-  //     "country",
-  //     "time_zone.name",
-  //     "learning_goals",
-  //     "specific_needs",
-  //   ];
-
-  //   for (let field of requiredFields) {
-  //     const value = field.includes(".")
-  //       ? formData[field.split(".")[0]][field.split(".")[1]]
-  //       : formData[field];
-
-  //     if (!value || (Array.isArray(value) && value.length === 0)) {
-  //       toast.error(`Please fill in the ${field} field`);
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // };
 
   const validateForm = () => {
     const requiredFields = [
@@ -364,7 +335,10 @@ const EnrollmentForm = ({ demoId }) => {
         days_per_week: "",
         learning_goals: "",
         specific_needs: "",
-        country: "",
+        country: {
+          name: "",
+          value: "",
+        },
         time_zone: {
           name: "",
           value: "",
@@ -376,7 +350,8 @@ const EnrollmentForm = ({ demoId }) => {
       });
 
       // Navigate to the thank-you page
-      navigate("/thank-you");
+      // navigate("/thank-you");
+      window.location.href = "/thank-you";
     } catch (error) {
       console.error("Enrollment submission failed", error);
       toast.error("Failed to submit enrollment. Please try again.");
@@ -645,7 +620,7 @@ const EnrollmentForm = ({ demoId }) => {
                     onChange={handleDateChange}
                     minDate={new Date()} // Disable past dates
                     dateFormat="dd/MM/yyyy"
-                    placeholderText="Pick a date"
+                    placeholderText="Select a date for demo"
                     className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-black/65 w-full cursor-pointer"
                     onKeyDown={(e) => e.preventDefault()} // Prevent typing
                   />
@@ -657,7 +632,7 @@ const EnrollmentForm = ({ demoId }) => {
                     onClick={() => setIsModalOpen(true)}
                     className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-start text-black/65 w-full"
                   >
-                    {formData.trial_lesson_slot.time || "Select a Time"}
+                    {formData.trial_lesson_slot.time || "Select a Time Slot"}
                   </button>
                 )}
 
@@ -696,7 +671,9 @@ const EnrollmentForm = ({ demoId }) => {
                   options={countries}
                   value={
                     countries.find(
-                      (option) => option.value === formData.country
+                      (option) =>
+                        option.value === formData.country.value &&
+                        option.label === formData.country.name
                     ) || ""
                   }
                   onChange={(selectedOption) =>

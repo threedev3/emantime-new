@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import Select from "react-select";
@@ -6,14 +6,19 @@ import { toast } from "react-hot-toast";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getGCLID, getStoredGCLID, storeGCLID } from "../../utils/gclid";
+import { getFullCountryName } from "../../utils/getCountryName";
 
 const Form = () => {
   const BASE_URL = import.meta.env.VITE_APP_BASE_URL_LOCAL;
+  const IPINFO_TOKEN = import.meta.env.VITE_APP_IP_INFO_API_TOKEN;
 
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [courses, setCourses] = useState([]);
+  const [gclid, setGclid] = useState("");
+  const [defaultCountry, setDefaultCountry] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +45,70 @@ const Form = () => {
     { value: "Islamic Studies", label: "Islamic Studies" },
     { value: "One-to-One Counseling", label: "One-to-One Counseling" },
   ];
+
+  // Function to fetch IP and Location Information
+  const fetchIPInfo = async () => {
+    try {
+      const response = await axios.get(
+        `https://ipinfo.io/json?token=${IPINFO_TOKEN}`
+      );
+      const ipInfo = response.data;
+
+      // Convert country code to full name
+      const countryFullName = getFullCountryName(ipInfo.country);
+      const countryCode = ipInfo.country.toLowerCase();
+
+      return {
+        ...ipInfo,
+        countryFullName,
+        countryCode,
+      };
+    } catch (error) {
+      console.error("Error fetching IP information:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const setInitialCountry = async () => {
+      try {
+        const ipInfo = await fetchIPInfo();
+        if (ipInfo && ipInfo.countryCode) {
+          console.log("country code", ipInfo.countryCode);
+
+          // Add this debug log to see the actual value being set
+          console.log("Setting default country to:", ipInfo.countryCode);
+          setDefaultCountry(ipInfo.countryCode);
+        } else {
+          // Fallback to 'us' if no country code is found
+          setDefaultCountry("us");
+        }
+      } catch (error) {
+        console.error("Error setting initial country:", error);
+      }
+    };
+    // Capture and store GCLID when component mounts
+    storeGCLID();
+
+    // Set GCLID from URL or localStorage
+    const currentGCLID = getGCLID() || getStoredGCLID();
+    if (currentGCLID) {
+      setGclid(currentGCLID);
+    }
+
+    // Call the function to set initial country
+    setInitialCountry();
+  }, []);
+
+  useEffect(() => {
+    console.log("Current defaultCountry:", defaultCountry);
+  }, [defaultCountry]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,11 +142,25 @@ const Form = () => {
     try {
       setIsLoading(true);
 
+      // Fetch IP Info at submission time
+      const ipInfo = await fetchIPInfo();
+
+      // const gclid = localStorage.getItem("gclid");
+
       const formData = {
         full_name,
         email,
         phone,
         courses: courses.map((course) => course.value),
+        gclid,
+        ...(ipInfo && {
+          userLocation: {
+            ip_address: ipInfo.ip,
+            country: ipInfo.countryFullName,
+            city: ipInfo.city,
+            region: ipInfo.region,
+          },
+        }),
       };
 
       const response = await submitDemoLead(formData);
@@ -106,6 +189,7 @@ const Form = () => {
     <form
       className="flex justify-center items-center gap-6 flex-wrap"
       onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
     >
       <input
         type="text"
@@ -115,14 +199,16 @@ const Form = () => {
         onChange={(e) => setFullName(e.target.value)}
       />
 
-      <div className="w-80 relative">
-        <PhoneInput
-          defaultCountry="us"
-          value={phone}
-          onChange={(phone) => setPhone(phone)}
-          className="bg-inputBg py-2 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"
-        />
-      </div>
+      {defaultCountry && (
+        <div className="w-80 relative">
+          <PhoneInput
+            defaultCountry={defaultCountry}
+            value={phone}
+            onChange={(phone) => setPhone(phone)}
+            className="bg-inputBg py-2 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"
+          />
+        </div>
+      )}
       <input
         type="text"
         className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import images from "../../assets/img/images";
 import icons from "../../assets/icons/icons";
 import { handleScroll } from "../../utils/scrollToElement";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const Unique = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="w-full px-6 xl:py-12 py-6 overflow-x-hidden relative">
       <div className="max-w-[1600px] mx-auto ">
@@ -55,6 +58,7 @@ const Unique = () => {
               label="Get Enrolled"
               className="bg-[#DB9E30]"
               buttonBg="bg-buttonBg text-white"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
@@ -64,6 +68,10 @@ const Unique = () => {
       <div className="absolute left-0 -top-36 overflow-hidden -z-20 ">
         <img src={images.design3} alt="" className="md:w-60 w-[150px]" />
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

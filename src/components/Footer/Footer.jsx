@@ -52,22 +52,22 @@ const Footer = () => {
 
             <ul className="flex flex-col gap-4 ">
               <li className="text-white xl:text-base text-sm">
-                <Link to="/">Home</Link>
+                <a href="/">Home</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <Link to="/courses/tajweed">Tajweed Mastery</Link>
+                <a href="/courses/tajweed">Tajweed Mastery</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <Link to="/courses/arabic">Arabic Language</Link>
+                <a href="/courses/arabic">Arabic Language</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <Link to="/courses/islamic-studies">Islamic Studies</Link>
+                <a href="/courses/islamic-studies">Islamic Studies</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <Link to="/pricing">Pricing</Link>
+                <a href="/pricing">Pricing</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <Link to="/contact">Contact Us</Link>
+                <a href="/contact-us">Contact Us</a>
               </li>
             </ul>
           </div>
@@ -81,10 +81,10 @@ const Footer = () => {
 
             <ul className="flex flex-col gap-4">
               <li className="text-white xl:text-base text-sm">
-                <Link to="/">Privacy Policy</Link>
+                <a href="/">Privacy Policy</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <Link to="/courses">Terms & Conditions</Link>
+                <a href="/courses">Terms & Conditions</a>
               </li>
             </ul>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import images from "../../assets/img/images";
 import icons from "../../assets/icons/icons";
 import "slick-carousel/slick/slick.css";
@@ -7,6 +7,17 @@ import Slider from "react-slick";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
 
 const Choose = () => {
+  const [isHomePage, setIsHomePage] = useState(false);
+
+  // Check if the current page is the Home page
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIsHomePage(true); // Home page logic
+    } else {
+      setIsHomePage(false); // Logic for other pages like Thank You page
+    }
+  }, [location.pathname]);
+
   const chooseItems = [
     {
       icon: icons.chooseIcon1,
@@ -71,14 +82,16 @@ const Choose = () => {
   };
 
   return (
-    <div className="w-full px-6 pb-12 overflow-x-hidden">
-      {/* <div className="">
-        <img
-          src={images.chooseImg}
-          alt=""
-          className="absolute bottom-[30.9%] z-50"
-        />
-      </div> */}
+    <div className="w-full px-6 py-12 overflow-x-hidden relative">
+      {isHomePage && (
+        <div className="md:block hidden">
+          <img
+            src={images.chooseImg}
+            alt=""
+            className="absolute -top-6 z-50 min-[1500px]:w-24 xl:w-20 md:w-20 "
+          />
+        </div>
+      )}
 
       <div className="max-w-[1600px] mx-auto flex flex-col gap-4 justify-center items-center">
         <div className="">

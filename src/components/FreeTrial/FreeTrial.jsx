@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import images from "../../assets/img/images";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const FreeTrial = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div
       className="w-full px-6 xl:py-12 py-6 bg-no-repeat bg-cover bg-center overflow-x-hidden  min-h-[488px] flex justify-center items-center"
@@ -24,10 +27,15 @@ const FreeTrial = () => {
               label="Book Your Free Trial"
               className="bg-[#DB9E30]"
               buttonBg="bg-buttonBg text-white"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

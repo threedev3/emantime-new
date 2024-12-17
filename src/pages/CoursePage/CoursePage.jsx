@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Topbar from "../../components/Topbar/Topbar";
 import SubHero from "../../components/SubHero/SubHero";
 import Footer from "../../components/Footer/Footer";
@@ -13,8 +13,12 @@ import CourseFor from "../../components/CourseFor/CourseFor";
 import CourseMatter from "../../components/CourseMatter/CourseMatter";
 import CourseFeatures from "../../components/CourseFeatures/CourseFeatures";
 import FooterMosque from "../../components/FooterMosque/FooterMosque";
+import TrialPopup from "../../components/TrialPopup/TrialPopup";
+import { Helmet } from "react-helmet";
 
 const CoursePage = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   const { slug } = useParams(); // Get the slug from the URL
   const course = coursesData[slug]; // Fetch the course data using the slug
 
@@ -24,6 +28,12 @@ const CoursePage = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>
+          {`${course.boldTitle} ${course.title}`} - EmanTime
+        </title>
+      </Helmet>
+      <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
       <Topbar />
       <CourseHero
         title={course.title}

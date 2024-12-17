@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { handleScroll } from "../../utils/scrollToElement";
+import TrialModal from "../TrialModal/TrialModal";
 
 const PricingCard = ({ pricing }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="relative flex flex-col items-center gap-8 p-6 rounded-2xl shadow-lg border border-black/10 min-w-80 overflow-hidden group bg-white">
       {/* Gradient Background */}
@@ -30,10 +33,14 @@ const PricingCard = ({ pricing }) => {
 
       <button
         className="bg-black py-3 px-6 rounded-full text-white text-lg font-semibold group-hover:text-black group-hover:bg-white relative"
-        onClick={() => handleScroll("contact")}
+        onClick={() => setOpenModal(true)}
       >
         Sign Up Today!
       </button>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

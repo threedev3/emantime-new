@@ -22,7 +22,7 @@ export default {
         courseMatter: "#F4F4F4",
       },
       height: {
-        custom: "calc(100vh - 64px)",
+        custom: "calc(100vh - 200px)",
       },
     },
   },

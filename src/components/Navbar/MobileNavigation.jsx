@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import icons from "../../assets/icons/icons";
 import images from "../../assets/img/images";
 import { handleScroll } from "../../utils/scrollToElement";
+import TrialModal from "../TrialModal/TrialModal";
 
 const navItems = [
   { title: "Home", link: "/" },
@@ -18,12 +19,13 @@ const navItems = [
     ],
   },
   { title: "Pricing", link: "/pricing" },
-  { title: "Contact Us", link: "/contact" },
+  { title: "Contact Us", link: "/contact-us" },
 ];
 
 const MobileNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -97,24 +99,24 @@ const MobileNavigation = () => {
                       >
                         {item.dropdownItems?.map((dropdownItem) => (
                           <li key={dropdownItem.title}>
-                            <Link
-                              to={dropdownItem.link}
+                            <a
+                              href={dropdownItem.link}
                               onClick={toggleMenu}
                               className="block py-2 px-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                             >
                               {dropdownItem.title}
-                            </Link>
+                            </a>
                           </li>
                         ))}
                       </ul>
                     </div>
                   ) : (
-                    <Link
-                      to={item.link}
+                    <a
+                      href={item.link}
                       className="block py-2 px-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                     >
                       {item.title}
-                    </Link>
+                    </a>
                   )}
                 </li>
               ))}
@@ -125,7 +127,7 @@ const MobileNavigation = () => {
             <button
               className="bg-buttonBg xl:py-3 py-2 px-6 rounded-full text-white w-full relative z-20"
               onClick={() => {
-                handleScroll("contact");
+                setOpenModal(true);
                 setIsOpen(false);
               }}
             >
@@ -134,6 +136,9 @@ const MobileNavigation = () => {
           </div>
         </div>
       </div>
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

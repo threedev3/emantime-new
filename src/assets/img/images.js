@@ -44,6 +44,9 @@ import enroll6 from "./enroll6.png";
 import enroll7 from "./enroll7.png";
 
 import thankBg from "./thankBg.png";
+import popupimg from "./popupimg.png";
+import heroMosque from "./hero-mosque.png";
+import thankyouVideo from "./thankyou.mp4";
 
 // Importing images from the arabic folder
 import arabicBg from "./arabic/arabicBg.png";
@@ -130,6 +133,9 @@ const images = {
   enroll6,
   enroll7,
   thankBg,
+  popupimg,
+  heroMosque,
+  thankyouVideo,
   arabic: {
     arabicBg,
     arabicLearn,

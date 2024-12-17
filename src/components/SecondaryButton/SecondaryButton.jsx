@@ -6,6 +6,7 @@ const SecondaryButton = ({
   className,
   buttonBg,
   redirect = "contact",
+  onClick,
 }) => {
   return (
     <div className="relative group w-fit">
@@ -18,7 +19,7 @@ const SecondaryButton = ({
   transition-all duration-200 ease-out
   hover:-translate-y-1
   active:translate-y-0`}
-        onClick={() => handleScroll(redirect)}
+        onClick={onClick}
       >
         {label}
       </button>

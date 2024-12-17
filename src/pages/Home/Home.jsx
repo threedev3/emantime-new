@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Herosection from "../../components/Herosection/Herosection";
 import Topbar from "../../components/Topbar/Topbar";
@@ -14,12 +14,24 @@ import Footer from "../../components/Footer/Footer";
 import Choose from "../../components/Choose/Choose";
 import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon";
 import FooterMosque from "../../components/FooterMosque/FooterMosque";
+import TrialPopup from "../../components/TrialPopup/TrialPopup";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div>
+      <Helmet>
+        <title>
+          EmanTime – Learn Quran and Islamic Studies Online From Expert Arab
+          Teachers
+        </title>
+      </Helmet>
+      <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
       <Topbar />
       <Herosection />
+      <Choose />
       <Reasons />
       <Unique />
       <Process />
