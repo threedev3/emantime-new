@@ -190,7 +190,7 @@ export default function TrialPopup({ openModal, setOpenModal }) {
 
       setIsLoading(false);
 
-      toast.success("Form submitted successfully!");
+      toast.success("Form submitted successfully");
 
       // navigate(`/enrollment-form/${leadId}`);
       window.location.href = `/enrollment-form/${leadId}`;
