@@ -5,10 +5,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import InlineSvg from "../SVGImage/SVGImage";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const Reasons = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+
 
   const reasonItems = [
     {
@@ -85,26 +87,14 @@ const Reasons = () => {
   const svgColor = "#FFF5D8";
   const svgHoverColor = "#DB9E30";
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.matchMedia("(min-width: 1024px)").matches);
-    };
-
-    // Initialize screen size check
-    handleResize();
-
-    // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup event listener on unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <div
       className="w-full px-6 py-12 bg-no-repeat lg:bg-top bg-center bg-cover overflow-x-hidden"
       style={{
-        backgroundImage: `url('${images.mosque2}')`,
+        backgroundImage: isLargeScreen
+          ? "url('${images.mosque2}')"
+          : `none`,
+        backgroundColor: isLargeScreen ? "none" : "#EEF3F7",
       }}
     >
       <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-3">

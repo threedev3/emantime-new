@@ -66,7 +66,7 @@ const Unique = () => {
         <div className="h-[1px] w-full bg-black/25 sm:mt-16 mt-8"></div>
       </div>
       <div className="absolute left-0 -top-36 overflow-hidden -z-20 ">
-        <img src={images.design3} alt="" className="md:w-60 w-[150px]" />
+        <img src={images.design3} alt="" className="md:w-60 w-[146px]" />
       </div>
 
       {openModal ? (
