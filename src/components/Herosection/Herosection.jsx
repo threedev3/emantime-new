@@ -28,7 +28,7 @@ const Herosection = () => {
     <div className="relative z-10">
       <div
         // className="w-full xl:h-[120vh] min-[1212px]:h-[95vh] min-[1168px]:h-[90vh] min-[1090px]:h-[85vh] lg:bg-bottom bg-no-repeat min-[1450px]:bg-cover min-[1168px]:bg-cover lg:bg-cover bg-cover min-[1600px]:bg-bottom bg-center"
-        className="bg-cover xl:h-custom lg:h-[510px] min-[900px]:h-[570px] min-[540px]:h-[470px] h-[500px] bg-header bg-gradThree"
+        className="bg-cover xl:h-custom min-[1166px]:h-[580px] lg:h-[550px] min-[900px]:h-[570px] min-[540px]:h-[470px] h-[500px] bg-header bg-gradThree"
         style={{
           // backgroundImage: `url('${images.header}')`,
           backgroundImage: `url('${images.heroMosque}')`,

@@ -83,7 +83,7 @@ const Choose = () => {
 
   return (
     <div className="w-full px-6 py-12 overflow-x-hidden relative">
-      {isHomePage && (
+      {/* {isHomePage && (
         <div className="md:block hidden">
           <img
             src={images.chooseImg}
@@ -91,10 +91,10 @@ const Choose = () => {
             className="absolute -top-6 z-50 min-[1500px]:w-24 xl:w-20 md:w-20 "
           />
         </div>
-      )}
+      )} */}
 
       <div className="max-w-[1600px] mx-auto flex flex-col gap-4 justify-center items-center">
-        <div className="">
+        {/* <div className="">
           <img src={icons.startIcon} alt="" />
         </div>
         <div>
@@ -118,9 +118,9 @@ const Choose = () => {
             prime position to help you or your child by conducting Online Quran
             Classes .
           </p>
-        </div>
+        </div> */}
 
-        <div className="w-full mt-12 flex justify-center flex-wrap md:gap-6  gap-3">
+        <div className="w-full flex justify-center flex-wrap md:gap-6  gap-3">
           {/* <Slider {...settings}> */}
           {chooseItems.map((item, index) => (
             <div

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import icons from "../../assets/icons/icons";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const CourseMatter = ({
   matterText,
@@ -8,6 +9,8 @@ const CourseMatter = ({
   reverse = false,
   transparent = false,
 }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div
       className={`w-full overflow-hidden relative xl:flex xl:justify-start xl:items-center xl:gap-20 grid lg:grid-cols-2 gap-12 ${
@@ -50,13 +53,18 @@ const CourseMatter = ({
 
           <div>
             <SecondaryButton
-              label="Read More"
+              label="Enroll Now"
               className="bg-[#DB9E30]"
               buttonBg="bg-buttonBg text-white xl:text-base lg:text-sm md:text-base text-sm"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

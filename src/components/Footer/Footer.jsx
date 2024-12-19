@@ -26,13 +26,13 @@ const Footer = () => {
         {/* <div className="flex flex-row lg:justify-around items-start flex-wrap xl:gap-12 gap-6"> */}
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 xl:gap-12 gap-6">
           <div className="flex flex-col gap-6">
-            <div>
+            <a href={"/"}>
               <img
                 src={images.footerLogo}
                 alt=""
                 className="xl:w-40 w-36 object-contain"
               />
-            </div>
+            </a>
             <div>
               <p className="text-white max-w-[300px] xl:text-base text-sm">
                 We are available 24/7, and the sign-up process is extremely
@@ -84,7 +84,7 @@ const Footer = () => {
                 <a href="/">Privacy Policy</a>
               </li>
               <li className="text-white xl:text-base text-sm">
-                <a href="/courses">Terms & Conditions</a>
+                <a href="/">Terms & Conditions</a>
               </li>
             </ul>
           </div>

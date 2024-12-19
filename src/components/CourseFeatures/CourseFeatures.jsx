@@ -48,7 +48,7 @@ const CourseFeatures = ({ keyFeatures }) => {
   };
 
   return (
-    <div className="w-full px-6 pt-12 relative overflow-hidden">
+    <div className="w-full px-6 py-12 relative overflow-hidden">
       <div className="max-w-[1600px] mx-auto flex flex-col gap-4 justify-center items-center">
         <div className="">
           <img src={icons.startIcon} alt="" />
@@ -94,13 +94,13 @@ const CourseFeatures = ({ keyFeatures }) => {
           {/* </Slider> */}
         </div>
 
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <SecondaryButton
             label="View More"
             className="bg-[#DB9E30]"
             buttonBg="bg-buttonBg text-white"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import React from "react";
 
-const FullName = ({className, value, onChange}) => {
+const PromoCode = ({ className, value, onChange }) => {
   return (
     <input
       type="text"
-      placeholder="Full Name"
+      placeholder="Promo Code"
       className={className}
       value={value}
       onChange={onChange}
@@ -12,4 +12,4 @@ const FullName = ({className, value, onChange}) => {
   );
 };
 
-export default FullName;
+export default PromoCode;

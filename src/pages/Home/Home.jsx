@@ -16,9 +16,14 @@ import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon";
 import FooterMosque from "../../components/FooterMosque/FooterMosque";
 import TrialPopup from "../../components/TrialPopup/TrialPopup";
 import { Helmet } from "react-helmet";
+import StoryMission from "../../components/StoryMission/StoryMission";
+import Services from "../../components/Services/Services";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import ServicesMobile from "../../components/Services/ServicesMobile";
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 768px)");
 
   return (
     <div>
@@ -31,6 +36,8 @@ const Home = () => {
       <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
       <Topbar />
       <Herosection />
+      {isLargeScreen ? <Services /> : <ServicesMobile />}
+      <StoryMission />
       <Choose />
       <Reasons />
       <Unique />

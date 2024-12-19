@@ -16,12 +16,12 @@ const Pricing = () => {
 
   const pricingPlan = [
     {
-      title: "Starter Plan",
+      title: "Starter",
       features: ["2 Classes Weekly", "8 Classes/Month", "4 Hours/Month"],
       price: "£/$40 /mo",
     },
     {
-      title: "Standard Plan",
+      title: "Standard",
       label: "Recommend",
       features: ["3 Classes Weekly", "12 Classes/Month", "6 Hours/Month"],
       price: "£/$55 /mo",
@@ -33,7 +33,7 @@ const Pricing = () => {
       price: "£/$70 /mo",
     },
     {
-      title: "Advanced Plan",
+      title: "Advanced",
       label: "Recommend",
       features: ["5 Classes Weekly", "20 Classes/Month", "10 Hours/Month"],
       price: "£/$90 /mo",
@@ -44,7 +44,7 @@ const Pricing = () => {
       price: "£/$100 /mo",
     },
     {
-      title: "Starter Plan",
+      title: "Tajweed Mastery",
       features: [
         "Daily Classes (Mon-Fri)",
         "Quran Reading &",

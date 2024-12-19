@@ -105,6 +105,36 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar for WebKit-based browsers */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #D9D9D9;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #08513F;
+    border-radius: 10px;
+  }
+}
+
+/* Custom scrollbar for Firefox */
+@-moz-document url-prefix() {
+  html,
+  .cust-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #08513F #888;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

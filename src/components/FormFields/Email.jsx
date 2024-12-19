@@ -1,15 +1,15 @@
 import React from "react";
 
-const FullName = ({className, value, onChange}) => {
+const Email = ({ className, value, onChange }) => {
   return (
     <input
       type="text"
-      placeholder="Full Name"
       className={className}
+      placeholder="Email"
       value={value}
       onChange={onChange}
     />
   );
 };
 
-export default FullName;
+export default Email;

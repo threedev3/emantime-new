@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import icons from "../../assets/icons/icons";
 import images from "../../assets/img/images";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const CourseFor = ({ courseFor, transparent = false }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div
       className={`w-full px-6 xl:pt-12 ${
@@ -39,9 +42,10 @@ const CourseFor = ({ courseFor, transparent = false }) => {
 
         <div>
           <SecondaryButton
-            label="Read More"
+            label="Enroll Now"
             className="bg-[#DB9E30]"
             buttonBg="bg-buttonBg text-white xl:text-base lg:text-sm md:text-base text-sm"
+            onClick={() => setOpenModal(true)}
           />
         </div>
 
@@ -49,6 +53,9 @@ const CourseFor = ({ courseFor, transparent = false }) => {
           <div className="h-[2px] w-full bg-black/15 sm:mt-8 mt-8"></div>
         )}
       </div>
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

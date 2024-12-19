@@ -20,9 +20,10 @@ export default {
         pricingCompBg: "#F3F3F3",
         contactDetailsBg: "#EAEAEA",
         courseMatter: "#F4F4F4",
+        aboutBg: "#F8F8F8"
       },
       height: {
-        custom: "calc(100vh - 200px)",
+        custom: "calc(100vh - 180px)",
       },
     },
   },

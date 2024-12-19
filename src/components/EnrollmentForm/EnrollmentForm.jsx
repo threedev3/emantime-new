@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import images from "../../assets/img/images";
 import Select from "react-select";
 import { Country } from "country-state-city";
 import TimePicker from "../TimePIcker/TimePicker";
-import { Dialog, DialogTitle } from "@headlessui/react";
+import { Dialog, DialogTitle, Transition } from "@headlessui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const EnrollmentForm = ({ demoId }) => {
-  const BASE_URL = import.meta.env.VITE_APP_BASE_URL_LOCAL;
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
   const [timezones, setTimezones] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +45,24 @@ const EnrollmentForm = ({ demoId }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeSlots, setTimeSlots] = useState([]);
+
+  const modalRef = useRef(null);
+
+  // Handler for clicks outside the modal
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setIsModalOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isModalOpen]);
 
   const generateTimeSlots = () => {
     const slots = [];
@@ -621,7 +639,7 @@ const EnrollmentForm = ({ demoId }) => {
                     minDate={new Date()} // Disable past dates
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Select a date for demo"
-                    className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-black/65 w-full cursor-pointer"
+                    className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-start text-black/65 w-full"
                     onKeyDown={(e) => e.preventDefault()} // Prevent typing
                   />
                 </div>
@@ -630,42 +648,80 @@ const EnrollmentForm = ({ demoId }) => {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-start text-black/65 w-full"
+                    className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 text-start text-black/65 w-full "
                   >
                     {formData.trial_lesson_slot.time || "Select a Time Slot"}
                   </button>
                 )}
 
                 {isModalOpen && (
-                  <Dialog
-                    open={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-                  >
-                    <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg">
-                      <DialogTitle className="text-lg font-bold mb-4">
-                        Select a Time Slot
-                      </DialogTitle>
-                      <div className="max-h-[400px] overflow-y-auto flex flex-col gap-2">
-                        {timeSlots.map((slot) => (
-                          <button
-                            key={slot}
-                            type="button"
-                            onClick={() => handleTimeSelect(slot)}
-                            className="py-2 px-4 rounded-lg text-black/80 hover:bg-gradOne hover:text-white transition"
-                          >
-                            {slot}
-                          </button>
-                        ))}
-                      </div>
-                      <button
-                        onClick={() => setIsModalOpen(false)}
-                        className="mt-4 w-full py-2 px-4 bg-gradient-to-r from-gradTwo to-gradThree text-white rounded-lg hover:bg-red-600 transition"
+                  <Transition show={isModalOpen} as={React.Fragment}>
+                    <Dialog
+                      open={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+                    >
+                      <div
+                        className="fixed inset-0 bg-black/30"
+                        aria-hidden="true"
+                      />
+
+                      <div
+                        className="relative bg-white rounded-xl shadow-lg p-6 w-full max-w-lg"
+                        ref={modalRef}
                       >
-                        Cancel
-                      </button>
-                    </div>
-                  </Dialog>
+                        <DialogTitle className="text-lg font-bold mb-4">
+                          Select a Time Slot
+                        </DialogTitle>
+                        <div className="max-h-[400px] overflow-y-auto  flex flex-col gap-2">
+                          {timeSlots.map((slot) => (
+                            <button
+                              key={slot}
+                              type="button"
+                              onClick={() => handleTimeSelect(slot)}
+                              className="
+                    py-3 px-4 
+                    bg-gray-100 
+                    text-gray-800 
+                    rounded-lg 
+                    hover:bg-gradOne 
+                    hover:text-white 
+                    transition-colors 
+                    duration-300 
+                    focus:outline-none 
+                    focus:ring-2 
+                    focus:ring-gradOne 
+                    focus:ring-opacity-50
+                  "
+                            >
+                              {slot}
+                            </button>
+                          ))}
+                        </div>
+                        <button
+                          onClick={() => setIsModalOpen(false)}
+                          className="
+                w-full mt-4
+                py-3 
+                bg-gradient-to-r 
+                from-gradTwo 
+                to-gradThree 
+                text-white 
+                rounded-lg 
+                hover:opacity-90 
+                transition-opacity 
+                duration-300 
+                focus:outline-none 
+                focus:ring-2 
+                focus:ring-white 
+                focus:ring-opacity-50
+              "
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </Dialog>
+                  </Transition>
                 )}
                 <Select
                   options={countries}
@@ -679,8 +735,8 @@ const EnrollmentForm = ({ demoId }) => {
                   onChange={(selectedOption) =>
                     handleSelectorChange("country", selectedOption)
                   }
-                  placeholder="Please Select Your Country"
-                  className="rounded-xl  placeholder:text-black/65"
+                  placeholder="Please Select Your Country "
+                  className="rounded-xl  placeholder:text-black/65 "
                   styles={customStyles}
                 />
                 <Select

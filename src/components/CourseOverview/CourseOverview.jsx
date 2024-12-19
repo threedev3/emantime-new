@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import images from "../../assets/img/images";
 import icons from "../../assets/icons/icons";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
 import { useParams } from "react-router-dom";
+import TrialModal from "../TrialModal/TrialModal";
 
 const CourseOverview = ({ image, overviewText, reverse = false }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   const { slug } = useParams();
   return (
     <div className="w-full px-6 py-12 overflow-x-hidden relative">
@@ -50,13 +53,18 @@ const CourseOverview = ({ image, overviewText, reverse = false }) => {
 
           <div>
             <SecondaryButton
-              label="Read More"
+              label="Learn More"
               className="bg-[#DB9E30]"
               buttonBg="bg-buttonBg text-white xl:text-base lg:text-sm md:text-base text-sm"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import icons from "../../assets/icons/icons";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const CourseLearn = ({ image, learnItems, reverse = false, bgColor }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div
       className={`w-full px-6 py-12 overflow-x-hidden relative bg-gradient-to-r ${bgColor}`}
@@ -81,13 +84,18 @@ const CourseLearn = ({ image, learnItems, reverse = false, bgColor }) => {
           </div>
           <div className="md:mx-0 mx-auto">
             <SecondaryButton
-              label="Read More"
+              label="Learn More"
               className="bg-[#DB9E30]"
               buttonBg="bg-buttonBg text-white xl:text-base lg:text-sm md:text-base text-sm"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };
