@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import icons from "../../assets/icons/icons";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import images from "../../assets/img/images";
+import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const ServicesMobile = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="w-full px-6 py-12 overflow-x-hidden relative ">
       <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-8">
@@ -62,7 +66,11 @@ const ServicesMobile = () => {
           </div>
 
           <div className="mx-auto">
-            <img src={images.arrow1} alt="" className="mx-auto min-[540px]:w-[300px] w-[230px] object-contain" />
+            <img
+              src={images.arrow1}
+              alt=""
+              className="mx-auto min-[540px]:w-[300px] w-[230px] object-contain"
+            />
           </div>
 
           {/* Section 02 */}
@@ -78,7 +86,11 @@ const ServicesMobile = () => {
           </div>
 
           <div className="mx-auto">
-            <img src={images.arrow2} alt="" className="mx-auto min-[540px]:w-[300px] w-[230px] object-contain" />
+            <img
+              src={images.arrow2}
+              alt=""
+              className="mx-auto min-[540px]:w-[300px] w-[230px] object-contain"
+            />
           </div>
 
           {/* Section 03 */}
@@ -96,7 +108,11 @@ const ServicesMobile = () => {
           </div>
 
           <div className="mx-auto">
-            <img src={images.arrow1} alt="" className="mx-auto min-[540px]:w-[300px] w-[230px] object-contain" />
+            <img
+              src={images.arrow1}
+              alt=""
+              className="mx-auto min-[540px]:w-[300px] w-[230px] object-contain"
+            />
           </div>
 
           {/* Section 04 */}
@@ -111,7 +127,20 @@ const ServicesMobile = () => {
             </p>
           </div>
         </div>
+
+        <div className="mt-12">
+          <SecondaryButton
+            label="Schedule Your Free Consultation Today!"
+            className="bg-[#DB9E30] "
+            buttonBg="bg-buttonBg text-white text-sm"
+            onClick={() => setOpenModal(true)}
+          />
+        </div>
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };

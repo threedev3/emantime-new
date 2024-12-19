@@ -13,11 +13,11 @@ const Programs = () => {
 
   const reasonItems = [
     {
-      title: "Quran Reading",
+      title: "Quran Recitation",
       description: [
-        "Understand the Quran: Learn the language of the Quran and connect directly with its message.",
-        "Essential Vocabulary: Master key Quranic words and phrases that appear frequently in the text.",
-        "Deeper Comprehension: Unlock the meaning behind the verses during Salah and personal reflection.",
+        "Reciting the Quran is more than just a skill—it’s an act of worship and a way to draw closer to Allah (SWT).",
+        "Our Quran Recitation is designed to help you recite the Quran with accuracy, beauty, and confidence, as it was revealed.",
+        "Whether you’re a beginner or seeking to refine your recitation, our expert Arab teachers guide you every step of the way.",
       ],
     },
     {

@@ -5,9 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
+import TrialModal from "../TrialModal/TrialModal";
 
 const Choose = () => {
   const [isHomePage, setIsHomePage] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   // Check if the current page is the Home page
   useEffect(() => {
@@ -94,31 +96,35 @@ const Choose = () => {
       )} */}
 
       <div className="max-w-[1600px] mx-auto flex flex-col gap-4 justify-center items-center">
-        {/* <div className="">
-          <img src={icons.startIcon} alt="" />
-        </div>
-        <div>
-          <img
-            src={images.arabic1}
-            alt=""
-            className="lg:w-72 w-60 object-contain"
-          />
-        </div>
+        {!isHomePage && (
+          <div className="flex flex-col gap-4 justify-center items-center">
+            <div className="">
+              <img src={icons.startIcon} alt="" />
+            </div>
+            <div>
+              <img
+                src={images.arabic1}
+                alt=""
+                className="lg:w-72 w-60 object-contain"
+              />
+            </div>
 
-        <div>
-          <h3 className="lg:text-5xl md:text-4xl text-3xl text-center">
-            Why <span className="poppins-bold">Choose Us</span>
-          </h3>
-        </div>
+            <div>
+              <h3 className="lg:text-5xl md:text-4xl text-3xl text-center">
+                Why <span className="poppins-bold">Choose Us</span>
+              </h3>
+            </div>
 
-        <div>
-          <p className="text-center max-w-5xl text-black/60 sm:text-base text-sm">
-            Learn Quran online with the correct method of Tajweed recitation.
-            Our professional tutors with several years of experience are in a
-            prime position to help you or your child by conducting Online Quran
-            Classes .
-          </p>
-        </div> */}
+            <div>
+              <p className="text-center max-w-5xl text-black/60 sm:text-base text-sm">
+                Learn Quran online with the correct method of Tajweed
+                recitation. Our professional tutors with several years of
+                experience are in a prime position to help you or your child by
+                conducting Online Quran Classes .
+              </p>
+            </div>
+          </div>
+        )}
 
         <div className="w-full flex justify-center flex-wrap md:gap-6  gap-3">
           {/* <Slider {...settings}> */}
@@ -156,12 +162,17 @@ const Choose = () => {
 
         <div className="mt-12">
           <SecondaryButton
-            label="View More"
+            label="Enroll Now"
             className="bg-[#DB9E30]"
             buttonBg="bg-buttonBg text-white"
+            onClick={() => setOpenModal(true)}
           />
         </div>
       </div>
+
+      {openModal ? (
+        <TrialModal openModal={openModal} setOpenModal={setOpenModal} />
+      ) : null}
     </div>
   );
 };
