@@ -95,8 +95,6 @@ const images = {
   design3,
   footerLogo,
   footerMosque,
-  freeTrialBg,
-  header,
   heroImg,
   logoBg,
   logo,
