@@ -17,9 +17,7 @@ const PricingPage = () => {
   return (
     <div>
       <Helmet>
-        <title>
-          Pricing - EmanTime
-        </title>
+        <title>Pricing - EmanTime</title>
       </Helmet>
       <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
       <Topbar />

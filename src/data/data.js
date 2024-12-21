@@ -107,7 +107,7 @@ const coursesData = {
       // Add more points...
     ],
     bgColor: "from-[#F8F8F8] to-[#DBDBDB]",
-    reverseLearn: true,
+    reverseLearn: false,
     courseFor: [
       "Beginners starting their Arabic language journey.",
       "Professionals seeking fluency for career advancement.",

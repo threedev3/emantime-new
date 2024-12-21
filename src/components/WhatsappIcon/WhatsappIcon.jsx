@@ -10,7 +10,7 @@ function WhatsappIcon() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-4 left-4 bg-green-500 hover:bg-green-600 text-white p-3 rounded-xl shadow-lg z-50"
+      className="fixed bottom-4 left-4 bg-green-500 hover:bg-green-600 text-white md:p-3 p-2 rounded-xl shadow-lg z-50"
     >
       <svg
         className="h-9 w-9 fill-white e-font-icon-svg e-fab-whatsapp"

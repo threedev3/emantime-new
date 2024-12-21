@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import icons from "../../assets/icons/icons";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
 import TrialModal from "../TrialModal/TrialModal";
+import { useLocation } from "react-router-dom";
 
 const CourseLearn = ({ image, learnItems, reverse = false, bgColor }) => {
   const [openModal, setOpenModal] = useState(false);
+  // const location = useLocation();
+
+  console.log(location.pathname);
 
   return (
     <div
@@ -13,17 +17,35 @@ const CourseLearn = ({ image, learnItems, reverse = false, bgColor }) => {
       //   backgroundImage: `url(${image})`,
       // }}
     >
-      <div
-        className={`absolute top-0 ${
-          reverse ? "left-0 justify-start " : "right-0 justify-end w-[90%]"
-        } lg:flex hidden h-full `}
-      >
-        <img
-          src={image}
-          alt=""
-          className={`h-full ${reverse ? "xl:w-full w-[80%] " : ""}`}
-        />
-      </div>
+      {location.pathname === "/courses/arabic" ? (
+        <div
+          className={`absolute xl:top-[15%] top-[20%] ${
+            reverse
+              ? "left-0 justify-start "
+              : "min-[1450px]:right-24 xl:right-8 right-2 justify-end w-[40%]"
+          } lg:flex hidden`}
+        >
+          <img
+            src={image}
+            alt=""
+            className={` ${reverse ? "xl:w-full w-[80%] object-contain" : ""}`}
+          />
+        </div>
+      ) : (
+        <div
+          className={`absolute top-0 ${
+            reverse ? "left-0 justify-start " : "right-0 justify-end w-[90%]"
+          } lg:flex hidden h-full `}
+        >
+          <img
+            src={image}
+            alt=""
+            className={`h-full ${
+              reverse ? "xl:w-full w-[80%] object-contain" : ""
+            }`}
+          />
+        </div>
+      )}
       <div
         className={`max-w-[1600px] mx-auto flex relative z-30 ${
           reverse ? "lg:justify-end justify-center" : "justify-start"

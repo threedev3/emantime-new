@@ -4,6 +4,7 @@ import axios from "axios";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { getFullCountryName } from "../utils/getCountryName";
 import { getGCLID, getStoredGCLID, storeGCLID } from "../utils/gclid";
+import { trackEvent } from "../utils/analytics";
 
 export const useDemoLeadForm = (onSuccessCallback) => {
   const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
@@ -29,7 +30,7 @@ export const useDemoLeadForm = (onSuccessCallback) => {
     { value: "One-to-One Counseling", label: "One-to-One Counseling" },
   ];
 
-  const validPromoCodes = ["SAVE10", "WELCOME", "TRIAL123"];
+  const validPromoCodes = ["Hayma10", "Mariam10", "Walla10", "Meryem10"];
 
   const fetchIPInfo = async () => {
     try {
@@ -149,6 +150,15 @@ export const useDemoLeadForm = (onSuccessCallback) => {
         throw new Error("Failed to retrieve lead ID.");
       }
 
+      // Track form submission
+      trackEvent("demo_form_submission", {
+        lead_id: leadId,
+        courses: formData.courses,
+        country: formData.userLocation?.country,
+        has_promo: !!formData.promo_code,
+        gclid: formData.gclid,
+      });
+
       setIsLoading(false);
       toast.success("Form submitted successfully!");
 
@@ -162,6 +172,10 @@ export const useDemoLeadForm = (onSuccessCallback) => {
 
       return true;
     } catch (error) {
+      // Track form submission error
+      trackEvent("demo_form_error", {
+        error_message: error.message,
+      });
       toast.error("Failed to submit form. Please try again.");
       setIsLoading(false);
       return false;

@@ -13,8 +13,7 @@ import design2 from "./design2.png";
 import design3 from "./design3.png";
 import footerLogo from "./footer-logo.png";
 import footerMosque from "./footer-mosque.png";
-import freeTrialBg from "./free-trial-bg.png";
-import header from "./header.png";
+import trialImg from "./trial-img.png";
 import heroImg from "./hero-img.png";
 import logoBg from "./logo-bg.png";
 import logo from "./logo.png";
@@ -124,6 +123,7 @@ const images = {
   bigLogo,
   arrow1,
   arrow2,
+  trialImg,
   arabic: {
     arabicBg,
     arabicLearn,

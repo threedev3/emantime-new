@@ -48,7 +48,14 @@ const MobileNavigation = () => {
         <BiMenu size={24} />
       </button> */}
 
-      <img src={icons.bars} alt="" onClick={toggleMenu} />
+      <img
+        src={icons.bars}
+        alt=""
+        onClick={toggleMenu}
+        className={`${
+          location.pathname === "/terms-and-conditions" ? "invert" : ""
+        }`}
+      />
 
       <div
         className={`fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${
