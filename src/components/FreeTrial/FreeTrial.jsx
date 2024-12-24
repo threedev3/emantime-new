@@ -8,15 +8,15 @@ const FreeTrial = () => {
 
   return (
     <div
-      className="w-full px-6 xl:py-12 py-12 overflow-x-hidden  min-h-[488px] flex justify-center items-center bg-[#160B00]"
+      className="w-full px-6 xl:py-6 py-6 overflow-x-hidden   flex justify-center items-center bg-[#160B00]"
       // style={{
       //   backgroundImage: `url('${images.freeTrialBg}')`,
       // }}
     >
-      <div className="max-w-[1600px] mx-auto flex lg:flex-row flex-col justify-between items-center gap-12 h-full w-full">
+      <div className="max-w-[1600px] mx-auto flex lg:flex-row flex-col justify-between items-center lg:gap-12 gap-6 h-full w-full">
         <div className="flex flex-col lg:items-start items-center lg:gap-12 gap-6 h-full">
           <div>
-            <h3 className="xl:text-5xl md:text-4xl text-[28px] lg:max-w-2xl md:max-w-lg max-w-sm text-white lg:text-start text-center">
+            <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-2xl min-[1400px]:max-w-2xl md:max-w-md max-w-sm text-white lg:text-start text-center">
               Join the Thousands Who{" "}
               <span className="poppins-bold">Trust EmanTime</span>
             </h3>
@@ -26,7 +26,7 @@ const FreeTrial = () => {
             <SecondaryButton
               label="Book Your Free Trial"
               className="bg-[#DB9E30]"
-              buttonBg="bg-buttonBg text-white"
+              buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
               onClick={() => setOpenModal(true)}
             />
           </div>
@@ -36,7 +36,7 @@ const FreeTrial = () => {
           <img
             src={images.trialImg}
             alt=""
-            className="lg:w-[760px] w-[500px] object-contain"
+            className="min-[1400px]:w-[760px] w-[460px] object-contain"
           />
         </div>
       </div>

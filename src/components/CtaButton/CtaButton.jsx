@@ -28,7 +28,7 @@ const CtaButton = ({
         >
           <img src={icons.hand} alt="" className="w-6 object-contain" />
         </div>
-        <h3 className=" min-[1100px]:text-base md:text-base text-sm capitalize tracking-tight p-3 font-semibold">
+        <h3 className=" min-[1400px]:text-base md:text-sm text-sm capitalize tracking-tight p-3 font-semibold">
           {text}
         </h3>
       </div>

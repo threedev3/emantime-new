@@ -9,14 +9,14 @@ const ServicesMobile = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="w-full px-6 py-12 overflow-x-hidden relative ">
-      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-8">
+    <div className="w-full px-6 py-6 overflow-x-hidden relative ">
+      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-3">
         <div className="">
           <img src={icons.startIcon} alt="" />
         </div>
 
         <div className="max-w-7xl">
-          <h3 className="text-2xl text-center" style={{ lineHeight: "1.3" }}>
+          <h3 className="text-xl text-center" style={{ lineHeight: "1.3" }}>
             Nourish Your Soul with the Light of the Quran A{" "}
             <span className="poppins-bold">Journey of Faith and Learning</span>
           </h3>

@@ -41,6 +41,7 @@ import mission from "./mission.png";
 import bigLogo from "./big-logo.png";
 import arrow1 from "./arrow1.png";
 import arrow2 from "./arrow2.png";
+import email from "./email.png";
 
 // Importing images from the arabic folder
 import arabicBg from "./arabic/arabicBg.png";
@@ -121,6 +122,7 @@ const images = {
   bigLogo,
   arrow1,
   arrow2,
+  email,
   trialImg,
   arabic: {
     arabicBg,

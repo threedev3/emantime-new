@@ -9,9 +9,9 @@ const Unique = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="w-full px-6 xl:py-12 py-6 overflow-x-hidden relative">
+    <div className="w-full px-6 xl:py-6 py-6 overflow-x-hidden relative">
       <div className="max-w-[1600px] mx-auto ">
-        <div className="flex justify-start items-center xl:gap-32 lg:gap-24 gap-12">
+        <div className="flex justify-start items-center xl:gap-32 lg:gap-16 gap-12">
           <div className="lg:block hidden">
             <div className="relative group w-fit">
               <div
@@ -24,31 +24,35 @@ const Unique = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col xl:gap-8 gap-3 ">
+          <div className="flex flex-col xl:gap-4 gap-3 ">
             <div>
-              <img src={icons.startIcon} alt="" />
+              <img src={icons.startIcon} alt="" className="xl:w-16 w-14" />
             </div>
             <div>
-              <img src={images.arabic2} alt="" className="" />
+              <img
+                src={images.arabic2}
+                alt=""
+                className="min-[1400px]:w-48 xl:w-40 w-36 object-contain"
+              />
             </div>
 
             <div>
-              <h3 className="xl:text-5xl md:text-4xl text-3xl max-w-lg text-black">
+              <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-3xl max-w-lg text-black">
                 What Makes{" "}
                 <span className="poppins-bold">EmanTime Unique?</span>
               </h3>
             </div>
 
             <ul className="flex flex-col xl:gap-3 gap-2 ml-4">
-              <li className="text-black text-base list-disc ">
+              <li className="text-black md:text-base text-sm list-disc ">
                 Struggling to find qualified teachers who truly understand your
                 needs?
               </li>
-              <li className="text-black text-base list-disc ">
+              <li className="text-black md:text-base text-sm list-disc ">
                 Facing challenges in balancing busy schedules with consistent
                 learning?
               </li>
-              <li className="text-black text-base list-disc ">
+              <li className="text-black md:text-base text-sm list-disc ">
                 Worried about keeping your children engaged or finding a
                 female-friendly environment?
               </li>
@@ -57,13 +61,13 @@ const Unique = () => {
             <SecondaryButton
               label="Get Enrolled"
               className="bg-[#DB9E30]"
-              buttonBg="bg-buttonBg text-white"
+              buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
               onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
 
-        <div className="h-[1px] w-full bg-black/25 sm:mt-16 mt-8"></div>
+        <div className="h-[1px] w-full bg-black/25 sm:mt-12 mt-8"></div>
       </div>
       <div className="absolute left-0 -top-36 overflow-hidden -z-20 ">
         <img src={images.design3} alt="" className="md:w-60 w-[146px]" />

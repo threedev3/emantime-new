@@ -18,6 +18,7 @@ import { Helmet } from "react-helmet";
 
 const CoursePage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
   const { slug } = useParams(); // Get the slug from the URL
   const course = coursesData[slug]; // Fetch the course data using the slug
@@ -29,12 +30,10 @@ const CoursePage = () => {
   return (
     <div>
       <Helmet>
-        <title>
-          {`${course.boldTitle} ${course.title}`} - EmanTime
-        </title>
+        <title>{`${course.boldTitle} ${course.title}`} - EmanTime</title>
       </Helmet>
       <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
-      <Topbar />
+      {isLargeScreen && <Topbar />}
       <CourseHero
         title={course.title}
         boldTitle={course.boldTitle}

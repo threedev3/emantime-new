@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import images from "../../assets/img/images";
 import Select from "react-select";
 import { Country } from "country-state-city";
-import TimePicker from "../TimePIcker/TimePicker";
 import { Dialog, DialogTitle, Transition } from "@headlessui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

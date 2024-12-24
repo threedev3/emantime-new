@@ -75,10 +75,14 @@ const Process = () => {
 
   return (
     <div>
-      <div className="w-full px-6 xl:py-12 py-6 relative overflow-x-hidden">
-        <div className="max-w-[1600px] mx-auto flex flex-col gap-4 justify-center items-center">
+      <div className="w-full px-6 xl:py-6 py-6 relative overflow-x-hidden">
+        <div className="max-w-[1600px] mx-auto flex flex-col gap-2 justify-center items-center">
           <div>
-            <img src={icons.startIcon} alt="" />
+            <img
+              src={icons.startIcon}
+              alt=""
+              className="min-[1400px]:w-16 w-14"
+            />
           </div>
 
           <div>
@@ -87,35 +91,35 @@ const Process = () => {
             </h3>
           </div>
           <div>
-            <h3 className="lg:text-5xl md:text-4xl text-3xl text-center">
+            <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-3xl text-center">
               Begin Your Journey <span className="poppins-bold">Today</span>
             </h3>
           </div>
 
           {/* <div className="flex flex-row justify-between items-start w-full mt-12"> */}
-          <div className="w-full mt-12 flex justify-center flex-wrap min-[1400px]:gap-10 md:gap-3  gap-3">
+          <div className="w-full mt-6 flex justify-center flex-wrap min-[1400px]:gap-10 md:gap-3  gap-3">
             {/* <Slider {...settings}> */}
             {processItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-row items-start justify-between min-[1400px]:px-6 px-3 md:py-8 py-6 hover:shadow-2xl hover:rounded-2xl transition-all duration-300"
+                className="flex flex-row items-start justify-between min-[1400px]:px-6 px-3 xl:py-8 py-6 hover:shadow-2xl hover:rounded-2xl transition-all duration-300"
               >
-                <div className="flex flex-col gap-6 items-center relative">
-                  <div className="p-6 rounded-full border-2 border-brownColor relative">
+                <div className="flex flex-col min-[1400px]:gap-6 gap-3 items-center relative">
+                  <div className="xl:p-6 p-5 rounded-full border-2 border-brownColor relative">
                     <img
                       src={icons.check}
                       alt=""
-                      className="absolute inset-0 w-7"
+                      className="absolute inset-0 xl:w-7 w-6"
                     />
-                    <img src={item.icon} alt="" className="md:w-14 w-12" />
+                    <img src={item.icon} alt="" className="xl:w-12 w-10" />
                   </div>
                   <div>
-                    <h3 className="text-lg max-w-[160px] text-center font-semibold min-h-[52px]">
+                    <h3 className="min-[1400px]:text-lg text-base max-w-[160px] text-center font-semibold min-[1400px]:min-h-[52px] min-h-[44px]">
                       {item.title}
                     </h3>
                   </div>
                   <div>
-                    <p className="text-base max-w-[260px] text-center">
+                    <p className="xl:text-base text-sm max-w-[260px] text-center">
                       {item.description}
                     </p>
                   </div>
@@ -124,7 +128,7 @@ const Process = () => {
             ))}
             {/* </Slider> */}
           </div>
-          <div className="h-[1px] w-full bg-black/25 sm:mt-12 mt-8"></div>
+          <div className="h-[1px] w-full bg-black/25 sm:mt-4 mt-2"></div>
         </div>
       </div>
     </div>

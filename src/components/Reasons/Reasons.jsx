@@ -11,7 +11,6 @@ const Reasons = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
-
   const reasonItems = [
     {
       icon: icons.reasonIcon1,
@@ -89,28 +88,30 @@ const Reasons = () => {
 
   return (
     <div
-      className="w-full px-6 py-12 bg-no-repeat lg:bg-top bg-center bg-cover overflow-x-hidden"
+      className="w-full px-6 py-6 bg-no-repeat lg:bg-top bg-center bg-cover overflow-x-hidden relative"
       style={{
-        backgroundImage: isLargeScreen
-          ? "url('${images.mosque2}')"
-          : `none`,
-        backgroundColor: isLargeScreen ? "none" : "#EEF3F7",
+        backgroundImage: isLargeScreen ? `url('${images.mosque2}')` : `none`,
+        backgroundColor: isLargeScreen ? "none" : "#EFF4F7",
       }}
     >
-      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-3">
+      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-1">
         <div>
-          <img src={icons.startIcon} alt="" />
+          <img
+            src={icons.startIcon}
+            alt=""
+            className="min-[1400px]:w-16 w-14"
+          />
         </div>
         <div>
           <img
             src={images.arabic1}
             alt=""
-            className="lg:w-72 w-60 object-contain"
+            className="min-[1400px]:w-72 xl:w-60 w-52 object-contain"
           />
         </div>
 
         <div>
-          <h3 className="lg:text-5xl md:text-4xl text-3xl text-center">
+          <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-3xl text-center">
             Why <span className="poppins-bold">EmanTime?</span>
           </h3>
         </div>
@@ -122,11 +123,11 @@ const Reasons = () => {
           </p>
         </div>
 
-        <div className="flex flex-row min-[1032px]:justify-around justify-center items-center gap-2 flex-wrap w-full ">
+        <div className="flex flex-row min-[1032px]:justify-around justify-center items-center gap-2 flex-wrap w-full md:mt-0 mt-4">
           {reasonItems.map((item, index) => (
             <div
               key={index}
-              className={`min-h-60 min-[1600px]:w-[300px] min-[540px]:w-[240px] w-full relative group ${
+              className={`min-h-60 min-[1600px]:w-[300px] min-[540px]:w-[240px] w-[260px] relative group ${
                 [0, 2, 4].includes(index)
                   ? "xl:mt-16 lg:mt-12 md:mt-0 mt-0"
                   : ""
@@ -145,7 +146,7 @@ const Reasons = () => {
               <div className="absolute inset-0 flex flex-col items-center justify-center xl:gap-6 min-[540px]:gap-5 gap-10">
                 <img src={item.icon} alt="" />
                 <div>
-                  <h3 className="text-xl max-w-[160px] text-center font-semibold lg:group-hover:text-white">
+                  <h3 className="xl:text-xl text-lg max-w-[160px] text-center font-semibold lg:group-hover:text-white">
                     {item.title}
                   </h3>
                 </div>
@@ -159,6 +160,10 @@ const Reasons = () => {
           ))}
         </div>
       </div>
+
+      {/* <div className="absolute left-0 top-36 overflow-hidden -z-10">
+        <img src={images.design3} alt="" className="md:w-60 w-[240px] invert" />
+      </div> */}
     </div>
   );
 };

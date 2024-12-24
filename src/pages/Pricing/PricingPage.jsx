@@ -10,9 +10,11 @@ import PricingComp from "../../components/PricingComp/PricingComp";
 import FooterMosque from "../../components/FooterMosque/FooterMosque";
 import TrialPopup from "../../components/TrialPopup/TrialPopup";
 import { Helmet } from "react-helmet";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const PricingPage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
   return (
     <div>
@@ -20,7 +22,7 @@ const PricingPage = () => {
         <title>Pricing - EmanTime</title>
       </Helmet>
       <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
-      <Topbar />
+      {isLargeScreen && <Topbar />}
       <SubHero
         title="Our "
         boldTitle="Pricing"

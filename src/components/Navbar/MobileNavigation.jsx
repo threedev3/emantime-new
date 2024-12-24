@@ -128,6 +128,47 @@ const MobileNavigation = () => {
                 </li>
               ))}
             </ul>
+
+            <div className="flex flex-col gap-3 px-6">
+              <div className="flex sm:gap-3 gap-2 items-center">
+                <div>
+                  <img
+                    src={images.whatsapp}
+                    alt=""
+                    className="w-7 object-contain"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm ">+44 20 3289 4228</h3>
+                </div>
+              </div>
+              <div className="flex sm:gap-3 gap-2 items-center">
+                <div>
+                  <img
+                    src={images.phone}
+                    alt=""
+                    className="w-7 object-contain"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm">+1 551-253-3039</h3>
+                </div>
+              </div>
+              <div className="flex sm:gap-3 gap-2 items-center">
+                <div>
+                  <img
+                    src={images.email}
+                    alt=""
+                    className="w-7 object-contain"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm">
+                    support@emantime.com
+                  </h3>
+                </div>
+              </div>
+            </div>
           </nav>
 
           <div className="p-4 border-t ">

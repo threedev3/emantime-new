@@ -7,19 +7,20 @@ import ContactComp from "../../components/ContactComp/ContactComp";
 import FooterMosque from "../../components/FooterMosque/FooterMosque";
 import TrialPopup from "../../components/TrialPopup/TrialPopup";
 import { Helmet } from "react-helmet";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const ContactPage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
   return (
     <div>
       <Helmet>
-        <title>
-          Contact Us - EmanTime
-        </title>
+        <title>Contact Us - EmanTime</title>
       </Helmet>
       <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
-      <Topbar />
+      {isLargeScreen && <Topbar />}
+
       <SubHero
         title="Contact "
         boldTitle="Us"

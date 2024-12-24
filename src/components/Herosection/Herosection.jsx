@@ -28,7 +28,8 @@ const Herosection = () => {
     <div className="relative z-10">
       <div
         // className="w-full xl:h-[120vh] min-[1212px]:h-[95vh] min-[1168px]:h-[90vh] min-[1090px]:h-[85vh] lg:bg-bottom bg-no-repeat min-[1450px]:bg-cover min-[1168px]:bg-cover lg:bg-cover bg-cover min-[1600px]:bg-bottom bg-center"
-        className="bg-cover xl:h-custom min-[1166px]:h-[580px] lg:h-[550px] min-[900px]:h-[570px] min-[540px]:h-[470px] h-[500px] bg-header bg-gradThree"
+        // className="bg-cover xl:h-custom min-[1166px]:h-[580px] lg:h-[550px] min-[900px]:h-[570px] min-[540px]:h-[470px] h-[500px] bg-header bg-gradThree"
+        className="bg-cover  bg-header bg-gradThree"
         style={{
           // backgroundImage: `url('${images.header}')`,
           backgroundImage: `url('${images.heroMosque}')`,
@@ -40,7 +41,7 @@ const Herosection = () => {
 
         <div className="px-6 w-full ">
           <div className="flex lg:justify-between justify-center items-start gap-6 max-w-[1600px] mx-auto">
-            <div className="flex flex-col min-[1416px]:gap-5 lg:gap-3 sm:gap-6 gap-4 min-[1450px]:mt-16 min-[1166px]:mt-4 lg:mt-10 sm:mt-14 min-[540px]:mt-4 mt-12">
+            <div className="flex flex-col min-[1416px]:gap-5 lg:gap-3 sm:gap-6 gap-4 min-[1450px]:mt-16 min-[1166px]:mt-10 lg:mt-10 min-[1166px]:mb-10 lg:mb-0 sm:mt-14 min-[540px]:mt-4 sm:mb-14 min-[540px]:mb-4 mt-12 mb-12">
               <img
                 src={images.tasmiyah}
                 alt=""
@@ -63,7 +64,7 @@ const Herosection = () => {
 
               <CtaButton
                 text="Book Your Free Trial Class Now"
-                className="bg-white text-heroCta lg:mx-0 mx-auto"
+                className="bg-white text-heroCta lg:mx-0 mx-auto min-[1400px]:text-base text-sm"
                 iconBg="bg-buttonBg/20"
                 className2="group-hover:opacity-20 bg-[#ffffff]"
                 onClick={() => setOpenModal(true)}

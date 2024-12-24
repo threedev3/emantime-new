@@ -108,22 +108,22 @@ const Programs = () => {
   // }, []);
 
   return (
-    <div className="w-full px-6 xl:py-12 py-6 overflow-hidden relative">
-      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-6">
+    <div className="w-full px-6 xl:py-6 py-6 overflow-hidden relative">
+      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-3">
         <div>
-          <h3 className="lg:text-5xl md:text-4xl text-3xl text-center">
+          <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-3xl text-center">
             Our <span className="poppins-bold">Programs</span>
           </h3>
         </div>
 
         <div>
-          <p className="text-center max-w-lg font-medium lg:text-3xl sm:text-base text-sm text-black/65">
+          <p className="text-center max-w-lg font-medium min-[1400px]:text-3xl lg:text-2xl sm:text-base text-sm text-black/65">
             A Path to Spiritual Enlightenment
           </p>
         </div>
 
         {isLargeScreen ? (
-          <div className=" w-full mt-12">
+          <div className=" w-full mt-6">
             <Slider {...settings}>
               {reasonItems.map((item, index) => (
                 <div
@@ -163,7 +163,7 @@ const Programs = () => {
                       <ul className="text-center min-[1500px]:max-w-[90%] max-w-[80%] mx-auto flex flex-col xl:gap-2 gap-1">
                         {item.description.map((item, index) => (
                           <li
-                            className="xl:text-sm min-[960px]:text-sm min-[716px]:text-sm min-[414px]:text-sm text-xs lg:group-hover:text-white"
+                            className="xl:text-sm min-[960px]:text-xs min-[716px]:text-sm min-[414px]:text-sm text-xs lg:group-hover:text-white"
                             key={index}
                           >
                             {item}
@@ -226,7 +226,7 @@ const Programs = () => {
           </div>
         )}
 
-        <div className="h-[1px] w-full bg-black/25 sm:mt-12 mt-8"></div>
+        <div className="h-[1px] w-full bg-black/25 sm:mt-8 mt-8"></div>
       </div>
 
       <div className="absolute right-0 top-0 overflow-hidden -z-10">

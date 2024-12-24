@@ -61,15 +61,22 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="w-full px-6 xl:py-12 py-6 overflow-x-hidden relative">
-      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-8">
+    <div className="w-full px-6 xl:py-6 py-6 overflow-x-hidden relative">
+      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-3">
         <div>
-          <h3 className="lg:text-5xl md:text-4xl text-3xl text-center poppins-bold">
+          <img
+            src={icons.startIcon}
+            alt=""
+            className="min-[1400px]:w-16 w-14"
+          />
+        </div>
+        <div>
+          <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-3xl text-center poppins-bold">
             Your Journey To Quran Mastery
           </h3>
         </div>
         <div>
-          <h3 className="lg:text-4xl md:text-2xl text-2xl text-center">
+          <h3 className="min-[1400px]:text-4xl xl:text-3xl md:text-2xl text-2xl text-center">
             Choose Your Plan
           </h3>
         </div>
@@ -82,7 +89,7 @@ const Pricing = () => {
           </p>
         </div>
 
-        <ul className="flex flex-col gap-4 justify-center items-center">
+        <ul className="flex flex-col gap-3 justify-center items-center">
           {priceBullets.map((bullet, index) => (
             <div className="flex flex-row gap-3 items-start" key={index}>
               <div className="w-5 h-5 border border-black rounded-full flex justify-center items-center flex-shrink-0">
@@ -93,15 +100,15 @@ const Pricing = () => {
           ))}
         </ul>
 
-        <div className="flex flex-row justify-center items-start flex-wrap gap-6">
+        <div className="flex flex-row justify-center items-start flex-wrap gap-6 mt-4">
           {pricingPlan.map((pricing, index) => (
             <PricingCard pricing={pricing} key={index} />
           ))}
         </div>
 
-        <div className="flex flex-col gap-8 items-center mt-12">
+        <div className="flex flex-col gap-5 items-center mt-6">
           <div>
-            <h3 className="bg-clip-text text-transparent bg-gradient-to-r from-textGradOne via-textGradTwo to-textGradThree lg:text-4xl sm:text-3xl text-3xl font-semibold">
+            <h3 className="bg-clip-text text-transparent bg-gradient-to-r from-textGradOne via-textGradTwo to-textGradThree min-[1400px]:text-4xl sm:text-3xl text-3xl font-semibold">
               Special Offers
             </h3>
           </div>
@@ -115,7 +122,7 @@ const Pricing = () => {
                 <div className="flex-shrink-0">
                   <img src={icons.checkBlack} alt="" width={20} />
                 </div>
-                <h4 className="font-semibold xl:text-xl sm:text-lg text-base text-center">
+                <h4 className="font-semibold xl:text-lg sm:text-base text-base text-center">
                   {offer}
                 </h4>
               </div>
@@ -125,7 +132,7 @@ const Pricing = () => {
           <div className="flex min-[840px]:flex-row flex-col min-[840px]:gap-3 gap-6 justify-center items-center">
             <CtaButton
               text="Invest In Your Hereafter And Begin Your Journey Today"
-              className="bg-brownColor text-white"
+              className="bg-brownColor text-white min-[1400px]:text-base text-sm"
               iconBg="bg-white"
               className2="group-hover:opacity-50 bg-[#DB9E30]"
               onClick={() => setOpenModal(true)}
@@ -136,13 +143,13 @@ const Pricing = () => {
             <SecondaryButton
               label="Claim Your Free Trial Now"
               className="bg-[#F5E4C5]"
-              buttonBg="bg-white text-black drop-shadow-xl"
+              buttonBg="bg-white text-black drop-shadow-xl min-[1400px]:text-base text-sm"
               onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
 
-        <div className="h-[1px] w-full bg-black/25 sm:mt-16 mt-10"></div>
+        <div className="h-[1px] w-full bg-black/25 sm:mt-8 mt-8"></div>
       </div>
 
       <div className="absolute left-0 lg:top-0 top-[20%] overflow-hidden -z-20 md:block hidden">

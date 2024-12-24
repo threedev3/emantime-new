@@ -61,10 +61,10 @@ const Testimonials = () => {
   ];
 
   return (
-    <div className="w-full px-6 xl:py-12 py-6 overflow-hidden relative">
-      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-6">
+    <div className="w-full px-6 xl:py-6 py-6 overflow-hidden relative">
+      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-4">
         <div>
-          <h3 className="lg:text-5xl md:text-4xl text-3xl text-center max-w-2xl ">
+          <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-3xl text-center max-w-2xl ">
             Lives Transformed Through{" "}
             <span className="poppins-bold">Emantime</span>
           </h3>
@@ -81,7 +81,7 @@ const Testimonials = () => {
 
         <div className="w-full ">
           {/* <Slider {...settings} className="w-full mx-auto"> */}
-          <div className="w-full mx-auto flex justify-center items-start gap-6 flex-wrap">
+          <div className="w-full mx-auto flex justify-center items-start xl:gap-4 gap-2 flex-wrap">
             {testimonialItems.map((item, index) => (
               <TestimonialCard item={item} key={index} />
             ))}

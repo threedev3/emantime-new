@@ -48,7 +48,7 @@ export default function TrialPopup({ openModal, setOpenModal }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setOpenModal(true);
-    }, 5000);
+    }, 25000);
 
     return () => clearTimeout(timer);
   }, [setOpenModal]);

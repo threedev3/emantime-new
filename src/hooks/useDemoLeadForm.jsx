@@ -86,6 +86,8 @@ export const useDemoLeadForm = (onSuccessCallback) => {
   const handleSubmit = async (e, customSuccessCallback) => {
     e.preventDefault();
 
+    console.log(validPromoCodes);
+
     if (!full_name.trim()) {
       toast.error("Full Name is required");
       return false;
@@ -107,9 +109,19 @@ export const useDemoLeadForm = (onSuccessCallback) => {
       return false;
     }
 
+    // if (
+    //   promo_code.trim() &&
+    //   !validPromoCodes.includes(promo_code.trim().toUpperCase())
+    // ) {
+    //   toast.error("Invalid promo code. Please try again.");
+    //   return false;
+    // }
+
     if (
       promo_code.trim() &&
-      !validPromoCodes.includes(promo_code.trim().toUpperCase())
+      !validPromoCodes.some(
+        (code) => code.toLowerCase() === promo_code.trim().toLowerCase()
+      )
     ) {
       toast.error("Invalid promo code. Please try again.");
       return false;

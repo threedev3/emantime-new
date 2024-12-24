@@ -23,7 +23,8 @@ import ServicesMobile from "../../components/Services/ServicesMobile";
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
-  const isLargeScreen = useMediaQuery("(min-width: 768px)");
+  const isMediumScreen = useMediaQuery("(min-width: 768px)");
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
   return (
     <div>
@@ -34,9 +35,9 @@ const Home = () => {
         </title>
       </Helmet>
       <TrialPopup openModal={openModal} setOpenModal={setOpenModal} />
-      <Topbar />
+      {isLargeScreen && <Topbar />}
       <Herosection />
-      {isLargeScreen ? <Services /> : <ServicesMobile />}
+      {isMediumScreen ? <Services /> : <ServicesMobile />}
       <StoryMission />
       <Choose />
       <Reasons />

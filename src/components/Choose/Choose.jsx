@@ -84,7 +84,7 @@ const Choose = () => {
   };
 
   return (
-    <div className="w-full px-6 py-12 overflow-x-hidden relative">
+    <div className="w-full px-6 py-6 overflow-x-hidden relative">
       {/* {isHomePage && (
         <div className="md:block hidden">
           <img
@@ -126,19 +126,19 @@ const Choose = () => {
           </div>
         )}
 
-        <div className="w-full flex justify-center flex-wrap md:gap-6  gap-3">
+        <div className="w-full flex justify-center flex-wrap xl:gap-6 md:gap-3  gap-3">
           {/* <Slider {...settings}> */}
           {chooseItems.map((item, index) => (
             <div
               key={index}
-              className="flex flex-row items-start justify-between px-6 md:py-8 py-6 hover:shadow-2xl hover:rounded-2xl transition-all duration-300"
+              className="flex flex-row items-start justify-between xl:px-6 px-3 md:py-6 py-6 hover:shadow-2xl hover:rounded-2xl transition-all duration-300"
             >
-              <div className="flex flex-col gap-6 items-center relative min-[1600px]:min-w-60  min-[1350px]:min-w-48 min-w-40">
+              <div className="flex flex-col gap-6 items-center relative min-[1600px]:min-w-60 min-[1350px]:min-w-48 min-w-40">
                 <div className="p-4 rounded-full border-2 border-brownColor">
-                  <img src={item.icon} alt="" className="" />
+                  <img src={item.icon} alt="" className="xl:w-12 w-10" />
                 </div>
                 <div>
-                  <h3 className="text-lg  max-w-[160px] text-center">
+                  <h3 className="min-[1400px]:text-lg text-base max-w-[160px] text-center">
                     {item.title}
                   </h3>
                 </div>
@@ -160,11 +160,11 @@ const Choose = () => {
           {/* </Slider> */}
         </div>
 
-        <div className="mt-12">
+        <div className="">
           <SecondaryButton
             label="Enroll Now"
             className="bg-[#DB9E30]"
-            buttonBg="bg-buttonBg text-white"
+            buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
             onClick={() => setOpenModal(true)}
           />
         </div>

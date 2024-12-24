@@ -8,15 +8,15 @@ const Services = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="w-full px-6 py-12 overflow-x-hidden relative ">
-      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-8">
+    <div className="w-full px-6 py-6 overflow-x-hidden relative ">
+      <div className="max-w-[1600px] mx-auto flex flex-col justify-center items-center gap-4">
         <div className="">
           <img src={icons.startIcon} alt="" />
         </div>
 
-        <div className="max-w-7xl">
+        <div className="min-[1400px]:max-w-5xl max-w-3xl">
           <h3
-            className="lg:text-5xl md:text-4xl text-3xl text-center"
+            className="min-[1400px]:text-4xl lg:text-3xl md:text-4xl text-3xl text-center"
             style={{ lineHeight: "1.3" }}
           >
             Nourish Your Soul with the Light of the Quran A{" "}
@@ -24,12 +24,12 @@ const Services = () => {
           </h3>
         </div>
 
-        <div className="flex flex-col mt-8">
+        <div className="flex flex-col ">
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-col gap-3">
-              <h3 className="poppins-bold text-4xl">01</h3>
+            <div className="flex flex-col gap-2">
+              <h3 className="poppins-bold text-3xl">01</h3>
               <p
-                className="md:text-base text-sm text-black/65 min-[1400px]:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] max-w-[80%]"
+                className="min-[1400px]:text-base text-sm text-black/65 min-[1400px]:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] max-w-[80%]"
                 style={{ lineHeight: "1.8" }}
               >
                 we believe that learning the Quran is more than just acquiring
@@ -38,10 +38,10 @@ const Services = () => {
                 spiritually, and finding guidance for every step of your life.
               </p>
             </div>
-            <div className="flex flex-col gap-3 mt-24 lg:ml-32 ml-12">
-              <h3 className="poppins-bold text-4xl">02</h3>
+            <div className="flex flex-col gap-2 mt-16 lg:ml-32 ml-12">
+              <h3 className="poppins-bold text-3xl">02</h3>
               <p
-                className="md:text-base text-sm text-black/65 min-[1400px]:max-w-[70%] xl:max-w-[80%] lg:max-w-[90%] max-w-full"
+                className="min-[1400px]:text-base text-sm text-black/65 min-[1400px]:max-w-[70%] xl:max-w-[80%] lg:max-w-[90%] max-w-full"
                 style={{ lineHeight: "1.8" }}
               >
                 While we welcome learners of all ages and backgrounds, our
@@ -55,15 +55,15 @@ const Services = () => {
             <img
               src={images.bigLogo}
               alt=""
-              className="min-[1400px]:w-[500px] xl:w-[460px] lg:w-[360px] md:w-[280px] object-contain"
+              className="min-[1400px]:w-[300px] xl:w-[270px] lg:w-[200px] md:w-[200px] object-contain"
             />
           </div>
 
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-col gap-3 -mt-16">
-              <h3 className="poppins-bold text-4xl">03</h3>
+            <div className="flex flex-col gap-2 -mt-16">
+              <h3 className="poppins-bold text-3xl">03</h3>
               <p
-                className="md:text-base text-sm text-black/65 min-[1400px]:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] max-w-[80%]"
+                className="min-[1400px]:text-base text-sm text-black/65 min-[1400px]:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] max-w-[80%]"
                 style={{ lineHeight: "1.8" }}
               >
                 Whether you’re perfecting your Tajweed, memorizing the Quran,
@@ -73,10 +73,10 @@ const Services = () => {
                 grow, connect, and thrive.
               </p>
             </div>
-            <div className="flex flex-col gap-3 xl:mt-12 mt-20">
-              <h3 className="poppins-bold text-4xl">04</h3>
+            <div className="flex flex-col gap-2 xl:mt-12 mt-16">
+              <h3 className="poppins-bold text-3xl">04</h3>
               <p
-                className="md:text-base text-sm text-black/65 min-[1400px]:max-w-[70%] xl:max-w-[80%] lg:max-w-[90%] max-w-full"
+                className="min-[1400px]:text-base text-sm text-black/65 min-[1400px]:max-w-[70%] xl:max-w-[80%] lg:max-w-[90%] max-w-full"
                 style={{ lineHeight: "1.8" }}
               >
                 With dedicated Arab teachers who care deeply about your
@@ -86,11 +86,11 @@ const Services = () => {
             </div>
           </div>
         </div>
-        <div className="mt-12">
+        <div className="mt-6">
           <SecondaryButton
             label="Schedule Your Free Consultation Today!"
             className="bg-[#DB9E30]"
-            buttonBg="bg-buttonBg text-white"
+            buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
             onClick={() => setOpenModal(true)}
           />
         </div>

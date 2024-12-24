@@ -39,7 +39,7 @@ const Navbar = () => {
           style={{
             backgroundImage: `url('${images.logoBg}')`,
           }}
-          className="xl:h-44 h-28 xl:w-44 w-28 bg-no-repeat bg-contain flex justify-center items-start"
+          className="xl:h-40 h-28 xl:w-44 w-28 bg-no-repeat bg-contain flex justify-center items-start"
         >
           <a href={"/"}>
             <img
@@ -60,7 +60,7 @@ const Navbar = () => {
                     onMouseEnter={() => setShowDropdown(true)}
                     onMouseLeave={() => setShowDropdown(false)}
                   >
-                    <div className="flex items-center gap-2 text-menuText font-medium hover:text-white transition-all duration-300">
+                    <div className="flex items-center gap-2 text-menuText font-medium hover:text-white transition-all duration-300 min-[1400px]:text-base text-sm">
                       <span>{item.title}</span>
                       <FaChevronDown
                         className={`text-sm transition-transform duration-300 ${
@@ -79,7 +79,7 @@ const Navbar = () => {
                             <a
                               key={i}
                               href={course.link}
-                              className="px-4 py-2 hover:bg-gray-100 text-gray-800 transition-all duration-200 rounded-md block"
+                              className="px-4 py-2 hover:bg-gray-100 text-gray-800 transition-all duration-200 rounded-md block min-[1400px]:text-base text-sm"
                             >
                               {course.title}
                             </a>
@@ -92,7 +92,7 @@ const Navbar = () => {
                   <div className="relative ">
                     <a
                       href={item.link}
-                      className="text-menuText font-medium hover:text-white transition-all duration-300"
+                      className="text-menuText font-medium hover:text-white transition-all duration-300 min-[1400px]:text-base text-sm"
                     >
                       {item.title}
                     </a>
@@ -108,7 +108,7 @@ const Navbar = () => {
           <SecondaryButton
             label="Claim Free Trial"
             className="bg-[#DB9E30]"
-            buttonBg="bg-buttonBg text-white"
+            buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
             onClick={() => setOpenModal(true)}
           />
         </div>
