@@ -172,7 +172,6 @@ export default function TrialPopup({ openModal, setOpenModal }) {
                         <Button
                           type="submit"
                           className="inline-flex items-center justify-center gap-2 w-full rounded-lg bg-gradient-to-r from-gradOne via-gradTwo to-gradThree py-3 px-4 sm:text-base text-sm font-medium text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white text-center"
-                          onClick={close}
                           disabled={isLoading}
                         >
                           {isLoading ? (

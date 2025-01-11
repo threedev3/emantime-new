@@ -32,6 +32,12 @@ export const useDemoLeadForm = (onSuccessCallback) => {
 
   const validPromoCodes = ["Hayma10", "Mariam10", "Walla10", "Meryem10"];
 
+  // const trackTikTokEvent = (eventName, eventData) => {
+  //   if (window.ttq) {
+  //     window.ttq.track(eventName, eventData);
+  //   }
+  // };
+
   const fetchIPInfo = async () => {
     try {
       const response = await axios.get(
@@ -170,6 +176,22 @@ export const useDemoLeadForm = (onSuccessCallback) => {
         has_promo: !!formData.promo_code,
         gclid: formData.gclid,
       });
+
+      // // Track TikTok SubmitForm event
+      // trackTikTokEvent("SubmitForm", {
+      //   content_name: "Demo Class Registration",
+      //   content_type: "form_submission",
+      //   content_id: leadId,
+      //   value: formData.courses.length,
+      //   currency: "USD",
+      //   email: formData.email,
+      //   phone_number: formData.phone,
+      //   external_id: leadId,
+      //   ip: ipInfo?.ip,
+      //   url: window.location.href,
+      //   timestamp: Date.now(),
+      //   event_id: `demo_form_${leadId}`,
+      // });
 
       setIsLoading(false);
       toast.success("Form submitted successfully!");

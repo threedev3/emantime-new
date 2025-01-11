@@ -587,7 +587,7 @@ const EnrollmentForm = ({ demoId }) => {
               </h3>
 
               <div className="flex flex-col gap-6">
-                {["Arabic", "English", "Urdu", "Other"].map((language) => (
+                {["Arabic", "English", "Other"].map((language) => (
                   <label key={language} className="flex items-center space-x-6">
                     <input
                       type="radio"
