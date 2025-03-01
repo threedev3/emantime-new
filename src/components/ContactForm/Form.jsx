@@ -15,7 +15,6 @@ const Form = () => {
     setPhone,
     courses,
     setCourses,
-    defaultCountry,
     isLoading,
     courseOptions,
     handleSubmit,
@@ -41,16 +40,14 @@ const Form = () => {
         onChange={(e) => setFullName(e.target.value)}
       />
 
-      {defaultCountry && (
-        <div className="w-80 relative">
-          <PhoneNumber
-            defaultCountry={defaultCountry}
-            value={phone}
-            onChange={(phone) => setPhone(phone)}
-            className="bg-inputBg py-2 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"
-          />
-        </div>
-      )}
+      <div className="w-80 relative">
+        <PhoneNumber
+          defaultCountry={"us"}
+          value={phone}
+          onChange={(phone) => setPhone(phone)}
+          className="bg-inputBg py-2 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"
+        />
+      </div>
 
       <Email
         className="bg-inputBg py-4 px-6 rounded-xl border border-black/20 placeholder:text-black/65 w-80"

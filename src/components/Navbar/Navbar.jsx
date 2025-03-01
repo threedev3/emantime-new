@@ -56,7 +56,7 @@ const Navbar = () => {
               <li key={index} className="relative group cursor-pointer h-8">
                 {item.isDropdown ? (
                   <div
-                    className={`relative ${showDropdown && "h-28"}`}
+                    className={`relative ${showDropdown && "h-60"}`}
                     onMouseEnter={() => setShowDropdown(true)}
                     onMouseLeave={() => setShowDropdown(false)}
                   >
@@ -74,7 +74,7 @@ const Navbar = () => {
                       ></span> */}
 
                       {showDropdown && (
-                        <ul className="absolute top-8 left-0 bg-white shadow-xl rounded-lg py-2 w-56 z-50 transition-all duration-300">
+                        <ul className="absolute top-6 left-0 bg-white shadow-xl rounded-lg py-2 w-56 z-50 transition-all duration-300">
                           {courses.map((course, i) => (
                             <a
                               key={i}

@@ -39,7 +39,6 @@ export default function TrialModal({ openModal, setOpenModal }) {
     setCourses,
     promo_code,
     setPromoCode,
-    defaultCountry,
     isLoading,
     courseOptions,
     handleSubmit,
@@ -119,84 +118,68 @@ export default function TrialModal({ openModal, setOpenModal }) {
                       <form
                         onSubmit={(e) => handleSubmit(e)}
                         onKeyDown={handleKeyDown}
-                      >{
-                        defaultCountry ? (
-                          <div>
+                      >
+                        <div>
+                          <div className="relative mt-3 ">
+                            <FullName
+                              className={clsx(
+                                "block w-full py-4 pl-[60px] pr-3 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
+                                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                              )}
+                              value={full_name}
+                              onChange={(e) => setFullName(e.target.value)}
+                            />
 
-                        <div className="relative mt-3 ">
-                          <FullName
-                            className={clsx(
-                              "block w-full py-4 pl-[60px] pr-3 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
-                              "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                            )}
-                            value={full_name}
-                            onChange={(e) => setFullName(e.target.value)}
-                          />
-
-                          <UserIcon className="absolute top-4 left-3 w-6 fill-gradThree" />
-                        </div>
-
-                        <div className="relative mt-3">
-                          <Email
-                            className={clsx(
-                              "block w-full py-4 pl-[60px] pr-3 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
-                              "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                            )}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-
-                          <EmailIcon className="absolute top-4 left-3 w-6 fill-gradThree" />
-                        </div>
-
-                        <div className="block w-full rounded-lg  text-black shadow-sm sm:text-sm sm:leading-6 bg-white mt-3">
-                          <PhoneNumber
-                            defaultCountry={defaultCountry}
-                            value={phone}
-                            onChange={(phone) => setPhone(phone)}
-                            className={clsx(
-                              "block w-full py-2 md:px-2 px-4 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
-                              "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                            )}
-                          />
-                        </div>
-
-                        <div className="relative mt-3 ">
-                          <PromoCode
-                            className={clsx(
-                              "block w-full py-4 pl-[60px] pr-3 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
-                              "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                            )}
-                            value={promo_code}
-                            onChange={(e) => setPromoCode(e.target.value)}
-                          />
-
-                          <PromoIcon className="absolute top-4 left-3 w-6 fill-gradThree" />
-                        </div>
-
-                        <div className="mt-3">
-                          <SelectCourse
-                            options={courseOptions}
-                            value={courses}
-                            onChange={setCourses}
-                            variant="variant1"
-                          />
-                        </div>
-
+                            <UserIcon className="absolute top-4 left-3 w-6 fill-gradThree" />
                           </div>
-                        )
-                        : 
-                        (
-                          <div>
-                            {
-                              [1,2,3,4,5].map((item, index) => (
-                                <FieldSkeleton />
-                              ))
-                            }
+
+                          <div className="relative mt-3">
+                            <Email
+                              className={clsx(
+                                "block w-full py-4 pl-[60px] pr-3 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
+                                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                              )}
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+
+                            <EmailIcon className="absolute top-4 left-3 w-6 fill-gradThree" />
                           </div>
-                        )
-                      }
-                        
+
+                          <div className="block w-full rounded-lg  text-black shadow-sm sm:text-sm sm:leading-6 bg-white mt-3">
+                            <PhoneNumber
+                              defaultCountry={"us"}
+                              value={phone}
+                              onChange={(phone) => setPhone(phone)}
+                              className={clsx(
+                                "block w-full py-2 md:px-2 px-4 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
+                                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                              )}
+                            />
+                          </div>
+
+                          <div className="relative mt-3 ">
+                            <PromoCode
+                              className={clsx(
+                                "block w-full py-4 pl-[60px] pr-3 rounded-lg border border-black/20 placeholder:text-black/65 bg-inputBg",
+                                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                              )}
+                              value={promo_code}
+                              onChange={(e) => setPromoCode(e.target.value)}
+                            />
+
+                            <PromoIcon className="absolute top-4 left-3 w-6 fill-gradThree" />
+                          </div>
+
+                          <div className="mt-3">
+                            <SelectCourse
+                              options={courseOptions}
+                              value={courses}
+                              onChange={setCourses}
+                              variant="variant1"
+                            />
+                          </div>
+                        </div>
 
                         <div className="mt-3 flex justify-center">
                           <Button

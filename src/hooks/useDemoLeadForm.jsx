@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { PhoneNumberUtil } from "google-libphonenumber";
-import { getFullCountryName } from "../utils/getCountryName";
 import { getGCLID, getStoredGCLID, storeGCLID } from "../utils/gclid";
 import { trackEvent } from "../utils/analytics";
 
 export const useDemoLeadForm = (onSuccessCallback) => {
   const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-  const IPINFO_TOKEN = import.meta.env.VITE_APP_IP_INFO_API_TOKEN;
 
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,10 +13,9 @@ export const useDemoLeadForm = (onSuccessCallback) => {
   const [courses, setCourses] = useState([]);
   const [promo_code, setPromoCode] = useState("");
   const [gclid, setGclid] = useState("");
-  const [defaultCountry, setDefaultCountry] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const phoneUtil = PhoneNumberUtil.getInstance();
+  // const phoneUtil = PhoneNumberUtil.getInstance();
 
   const courseOptions = [
     { value: "Tajweed Mastery", label: "Tajweed Mastery" },
@@ -38,45 +34,12 @@ export const useDemoLeadForm = (onSuccessCallback) => {
   //   }
   // };
 
-  const fetchIPInfo = async () => {
-    try {
-      const response = await axios.get(
-        `https://ipinfo.io/json?token=${IPINFO_TOKEN}`
-      );
-      const ipInfo = response.data;
-
-      const countryFullName = getFullCountryName(ipInfo.country);
-      const countryCode = ipInfo.country.toLowerCase();
-
-      return {
-        ...ipInfo,
-        countryFullName,
-        countryCode,
-      };
-    } catch (error) {
-      console.error("Error fetching IP information:", error);
-      return null;
-    }
-  };
-
   useEffect(() => {
-    const setInitialCountry = async () => {
-      try {
-        const ipInfo = await fetchIPInfo();
-        setDefaultCountry((ipInfo && ipInfo.countryCode) || "us");
-      } catch (error) {
-        setDefaultCountry("us");
-        console.error("Error setting initial country:", error);
-      }
-    };
-
     storeGCLID();
     const currentGCLID = getGCLID() || getStoredGCLID();
     if (currentGCLID) {
       setGclid(currentGCLID);
     }
-
-    setInitialCountry();
   }, []);
 
   const submitDemoLead = async (data) => {
@@ -89,11 +52,137 @@ export const useDemoLeadForm = (onSuccessCallback) => {
     }
   };
 
-  const handleSubmit = async (e, customSuccessCallback) => {
-    e.preventDefault();
+  // const handleSubmit = async (e, customSuccessCallback) => {
+  //   e.preventDefault();
 
-    console.log(validPromoCodes);
+  //   // console.log(validPromoCodes);
 
+  //   if (!full_name.trim()) {
+  //     toast.error("Full Name is required");
+  //     return false;
+  //   }
+
+  //   if (!email.trim() || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+  //     toast.error("Please enter a valid email address");
+  //     return false;
+  //   }
+
+  //   try {
+  //     const parsedPhone = phoneUtil.parse(phone);
+  //     if (!phoneUtil.isValidNumber(parsedPhone)) {
+  //       toast.error("Please enter a valid phone number");
+  //       return false;
+  //     }
+  //   } catch (error) {
+  //     toast.error("Invalid phone number format");
+  //     return false;
+  //   }
+
+  //   // if (
+  //   //   promo_code.trim() &&
+  //   //   !validPromoCodes.includes(promo_code.trim().toUpperCase())
+  //   // ) {
+  //   //   toast.error("Invalid promo code. Please try again.");
+  //   //   return false;
+  //   // }
+
+  //   if (
+  //     promo_code.trim() &&
+  //     !validPromoCodes.some(
+  //       (code) => code.toLowerCase() === promo_code.trim().toLowerCase()
+  //     )
+  //   ) {
+  //     toast.error("Invalid promo code. Please try again.");
+  //     return false;
+  //   }
+
+  //   if (courses.length === 0) {
+  //     toast.error("Please select at least one course");
+  //     return false;
+  //   }
+
+  //   try {
+  //     setIsLoading(true);
+
+  //     const ipInfo = await fetchIPInfo();
+
+  //     const formData = {
+  //       full_name,
+  //       email,
+  //       phone,
+  //       courses: courses.map((course) => course.value),
+  //       promo_code,
+  //       gclid,
+  //       ...(ipInfo && {
+  //         userLocation: {
+  //           ip_address: ipInfo.ip,
+  //           country: ipInfo.countryFullName,
+  //           city: ipInfo.city,
+  //           region: ipInfo.region,
+  //         },
+  //       }),
+  //     };
+
+  //     const response = await submitDemoLead(formData);
+
+  //     const leadId = response.data && response.data._id;
+
+  //     if (!leadId) {
+  //       throw new Error("Failed to retrieve lead ID.");
+  //     }
+
+  //     // Track form submission
+  //     trackEvent("demo_form_submission", {
+  //       lead_id: leadId,
+  //       courses: formData.courses,
+  //       country: formData.userLocation?.country,
+  //       has_promo: !!formData.promo_code,
+  //       gclid: formData.gclid,
+  //     });
+
+  //     // // Track TikTok SubmitForm event
+  //     // trackTikTokEvent("SubmitForm", {
+  //     //   content_name: "Demo Class Registration",
+  //     //   content_type: "form_submission",
+  //     //   content_id: leadId,
+  //     //   value: formData.courses.length,
+  //     //   currency: "USD",
+  //     //   email: formData.email,
+  //     //   phone_number: formData.phone,
+  //     //   external_id: leadId,
+  //     //   ip: ipInfo?.ip,
+  //     //   url: window.location.href,
+  //     //   timestamp: Date.now(),
+  //     //   event_id: `demo_form_${leadId}`,
+  //     // });
+
+  //     setIsLoading(false);
+  //     toast.success("Form submitted successfully!");
+
+  //     if (customSuccessCallback) {
+  //       console.log("customSuccessCallback runs");
+  //       customSuccessCallback(leadId);
+  //     } else if (onSuccessCallback) {
+  //       onSuccessCallback(leadId);
+  //       console.log("onSuccessCallback runs");
+  //     } else {
+  //       window.location.href = `/enrollment-form/${leadId}`;
+  //       console.log("else runs");
+  //     }
+
+  //     return true;
+  //   } catch (error) {
+  //     // Track form submission error
+  //     trackEvent("demo_form_error", {
+  //       error_message: error.message,
+  //     });
+  //     toast.error("Failed to submit form. Please try again.");
+  //     setIsLoading(false);
+  //     return false;
+  //   }
+  // };
+
+  const validateForm = () => {
     if (!full_name.trim()) {
       toast.error("Full Name is required");
       return false;
@@ -104,24 +193,18 @@ export const useDemoLeadForm = (onSuccessCallback) => {
       return false;
     }
 
-    try {
-      const parsedPhone = phoneUtil.parse(phone);
-      if (!phoneUtil.isValidNumber(parsedPhone)) {
-        toast.error("Please enter a valid phone number");
-        return false;
-      }
-    } catch (error) {
-      toast.error("Invalid phone number format");
+    // Enhanced phone validation
+    const phoneNumberWithoutSpaces = phone.replace(/\s+/g, "");
+    // Check if phone number has more than just the country code (typically country code is 1-3 digits)
+    // This assumes the minimum length of a valid phone number (including country code) is 7 digits
+    if (
+      !phone.trim() ||
+      phoneNumberWithoutSpaces.length < 8 ||
+      phoneNumberWithoutSpaces.length > 20
+    ) {
+      toast.error("Please enter a complete phone number");
       return false;
     }
-
-    // if (
-    //   promo_code.trim() &&
-    //   !validPromoCodes.includes(promo_code.trim().toUpperCase())
-    // ) {
-    //   toast.error("Invalid promo code. Please try again.");
-    //   return false;
-    // }
 
     if (
       promo_code.trim() &&
@@ -138,62 +221,42 @@ export const useDemoLeadForm = (onSuccessCallback) => {
       return false;
     }
 
+    return true;
+  };
+
+  const handleSubmit = async (e, customSuccessCallback) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+
+    const formData = {
+      full_name,
+      email,
+      phone,
+      courses: courses.map((course) => course.value),
+      promo_code,
+      gclid,
+    };
+
     try {
-      setIsLoading(true);
-
-      const ipInfo = await fetchIPInfo();
-
-      const formData = {
-        full_name,
-        email,
-        phone,
-        courses: courses.map((course) => course.value),
-        promo_code,
-        gclid,
-        ...(ipInfo && {
-          userLocation: {
-            ip_address: ipInfo.ip,
-            country: ipInfo.countryFullName,
-            city: ipInfo.city,
-            region: ipInfo.region,
-          },
-        }),
-      };
-
       const response = await submitDemoLead(formData);
+      const leadId = response.data?._id;
 
-      const leadId = response.data && response.data._id;
+      if (!leadId) throw new Error("Failed to retrieve lead ID.");
 
-      if (!leadId) {
-        throw new Error("Failed to retrieve lead ID.");
+      try {
+        trackEvent("demo_form_submission", {
+          lead_id: leadId,
+          courses: formData.courses,
+          has_promo: !!formData.promo_code,
+          gclid: formData.gclid,
+        });
+      } catch (trackError) {
+        console.error("Tracking event failed:", trackError);
       }
 
-      // Track form submission
-      trackEvent("demo_form_submission", {
-        lead_id: leadId,
-        courses: formData.courses,
-        country: formData.userLocation?.country,
-        has_promo: !!formData.promo_code,
-        gclid: formData.gclid,
-      });
-
-      // // Track TikTok SubmitForm event
-      // trackTikTokEvent("SubmitForm", {
-      //   content_name: "Demo Class Registration",
-      //   content_type: "form_submission",
-      //   content_id: leadId,
-      //   value: formData.courses.length,
-      //   currency: "USD",
-      //   email: formData.email,
-      //   phone_number: formData.phone,
-      //   external_id: leadId,
-      //   ip: ipInfo?.ip,
-      //   url: window.location.href,
-      //   timestamp: Date.now(),
-      //   event_id: `demo_form_${leadId}`,
-      // });
-
-      setIsLoading(false);
       toast.success("Form submitted successfully!");
 
       if (customSuccessCallback) {
@@ -203,16 +266,15 @@ export const useDemoLeadForm = (onSuccessCallback) => {
       } else {
         window.location.href = `/enrollment-form/${leadId}`;
       }
-
-      return true;
     } catch (error) {
-      // Track form submission error
-      trackEvent("demo_form_error", {
-        error_message: error.message,
-      });
+      try {
+        trackEvent("demo_form_error", { error_message: error.message });
+      } catch (trackError) {
+        console.error("Tracking error event failed:", trackError);
+      }
       toast.error("Failed to submit form. Please try again.");
+    } finally {
       setIsLoading(false);
-      return false;
     }
   };
 
@@ -235,7 +297,6 @@ export const useDemoLeadForm = (onSuccessCallback) => {
     setCourses,
     promo_code,
     setPromoCode,
-    defaultCountry,
     isLoading,
     courseOptions,
     handleSubmit,

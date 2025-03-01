@@ -30,7 +30,6 @@ export default function TrialPopup({ openModal, setOpenModal }) {
     setCourses,
     promo_code,
     setPromoCode,
-    defaultCountry,
     isLoading,
     courseOptions,
     handleSubmit,
@@ -133,19 +132,17 @@ export default function TrialPopup({ openModal, setOpenModal }) {
                         <EmailIcon className="absolute top-3.5 left-3 w-5 fill-gradThree" />
                       </div>
 
-                      {defaultCountry && (
-                        <div className="block w-full rounded-lg  text-black shadow-sm sm:text-sm sm:leading-6 bg-white mt-3">
-                          <PhoneNumber
-                            defaultCountry={defaultCountry}
-                            value={phone}
-                            onChange={(phone) => setPhone(phone)}
-                            className={clsx(
-                              "block w-full py-1 md:px-4 px-4 rounded-lg shadow-sm placeholder:text-black/65 bg-inputBg",
-                              "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
-                            )}
-                          />
-                        </div>
-                      )}
+                      <div className="block w-full rounded-lg  text-black shadow-sm sm:text-sm sm:leading-6 bg-white mt-3">
+                        <PhoneNumber
+                          defaultCountry={"us"}
+                          value={phone}
+                          onChange={(phone) => setPhone(phone)}
+                          className={clsx(
+                            "block w-full py-1 md:px-4 px-4 rounded-lg shadow-sm placeholder:text-black/65 bg-inputBg",
+                            "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                          )}
+                        />
+                      </div>
 
                       <div className="relative mt-3 ">
                         <PromoCode

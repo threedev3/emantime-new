@@ -15,6 +15,7 @@ import CourseFeatures from "../../components/CourseFeatures/CourseFeatures";
 import FooterMosque from "../../components/FooterMosque/FooterMosque";
 import TrialPopup from "../../components/TrialPopup/TrialPopup";
 import { Helmet } from "react-helmet";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const CoursePage = () => {
   const [openModal, setOpenModal] = useState(false);
