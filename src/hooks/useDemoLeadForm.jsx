@@ -4,8 +4,8 @@ import axios from "axios";
 import { getGCLID, getStoredGCLID, storeGCLID } from "../utils/gclid";
 import { trackEvent } from "../utils/analytics";
 
-export const useDemoLeadForm = (onSuccessCallback) => {
-  const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+export const useDemoLeadForm = () => {
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL_LOCAL;
 
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,6 +18,7 @@ export const useDemoLeadForm = (onSuccessCallback) => {
   // const phoneUtil = PhoneNumberUtil.getInstance();
 
   const courseOptions = [
+    { value: "Tajweed Crash Course", label: "Tajweed Crash Course" },
     { value: "Tajweed Mastery", label: "Tajweed Mastery" },
     { value: "Quran Reading", label: "Quran Reading" },
     { value: "Arabic Language", label: "Arabic Language" },
@@ -27,6 +28,22 @@ export const useDemoLeadForm = (onSuccessCallback) => {
   ];
 
   const validPromoCodes = ["Hayma10", "Mariam10", "Walla10", "Meryem10"];
+
+  // Function to map path to page source
+  const getPageSource = (path) => {
+    const pathMappings = {
+      "/courses/tajweed-crash-course": "Tajweed Crash Course Page",
+      "/": "Home Page",
+      // Add more mappings as needed
+      // Example: "/courses/quran-reading": "Quran Reading",
+    };
+
+    return pathMappings[path] || path;
+  };
+
+  const pagePath = window.location.pathname;
+
+  const pageSource = getPageSource(pagePath);
 
   // const trackTikTokEvent = (eventName, eventData) => {
   //   if (window.ttq) {
@@ -44,10 +61,16 @@ export const useDemoLeadForm = (onSuccessCallback) => {
 
   const submitDemoLead = async (data) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(`${BASE_URL}/webLeads/demo`, data);
+      toast.success("Form submitted successfully!");
+      setIsLoading(false);
       return response.data;
     } catch (error) {
       console.error("Error submitting demo lead:", error);
+      toast.error("Failed to submit form. Please try again.");
+      setIsLoading(false);
+
       throw error;
     }
   };
@@ -229,8 +252,6 @@ export const useDemoLeadForm = (onSuccessCallback) => {
 
     if (!validateForm()) return;
 
-    setIsLoading(true);
-
     const formData = {
       full_name,
       email,
@@ -238,44 +259,50 @@ export const useDemoLeadForm = (onSuccessCallback) => {
       courses: courses.map((course) => course.value),
       promo_code,
       gclid,
+      page_source: pageSource,
     };
 
-    try {
-      const response = await submitDemoLead(formData);
-      const leadId = response.data?._id;
+    const response = await submitDemoLead(formData);
 
-      if (!leadId) throw new Error("Failed to retrieve lead ID.");
+    console.log("Response", response);
 
-      try {
-        trackEvent("demo_form_submission", {
-          lead_id: leadId,
-          courses: formData.courses,
-          has_promo: !!formData.promo_code,
-          gclid: formData.gclid,
-        });
-      } catch (trackError) {
-        console.error("Tracking event failed:", trackError);
-      }
+    const leadId = response.data?._id;
 
-      toast.success("Form submitted successfully!");
+    if (!leadId) throw new Error("Failed to retrieve lead ID.");
 
-      if (customSuccessCallback) {
-        customSuccessCallback(leadId);
-      } else if (onSuccessCallback) {
-        onSuccessCallback(leadId);
-      } else {
-        window.location.href = `/enrollment-form/${leadId}`;
-      }
-    } catch (error) {
-      try {
-        trackEvent("demo_form_error", { error_message: error.message });
-      } catch (trackError) {
-        console.error("Tracking error event failed:", trackError);
-      }
-      toast.error("Failed to submit form. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    window.location.href = `/enrollment-form/${leadId}`;
+
+    // try {
+    //   const response = await submitDemoLead(formData);
+    //   const leadId = response.data?._id;
+
+    //   if (!leadId) throw new Error("Failed to retrieve lead ID.");
+
+    //   try {
+    //     trackEvent("demo_form_submission", {
+    //       lead_id: leadId,
+    //       courses: formData.courses,
+    //       has_promo: !!formData.promo_code,
+    //       gclid: formData.gclid,
+    //     });
+    //   } catch (trackError) {
+    //     console.error("Tracking event failed:", trackError);
+    //   }
+
+    //   toast.success("Form submitted successfully!");
+
+    //   if (customSuccessCallback) {
+    //     customSuccessCallback(leadId);
+    //   } else if (onSuccessCallback) {
+    //     onSuccessCallback(leadId);
+    //   } else {
+    //     window.location.href = `/enrollment-form/${leadId}`;
+    //   }
+    // } catch (error) {
+    //   toast.error("Failed to submit form. Please try again.");
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const resetForm = () => {
@@ -301,5 +328,6 @@ export const useDemoLeadForm = (onSuccessCallback) => {
     courseOptions,
     handleSubmit,
     resetForm,
+    pageSource,
   };
 };

@@ -46,7 +46,11 @@ const Home = () => {
       <Programs />
       <Pricing />
       <Testimonials />
-      <FreeTrial />
+      <FreeTrial
+        title="Join the Thousands Who"
+        boldTitle="Trust EmanTime"
+        btnText="Book Your Free Trial"
+      />
       <ContactForm />
       {/* <FooterMosque /> */}
       <Footer />

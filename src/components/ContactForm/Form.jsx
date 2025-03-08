@@ -18,9 +18,7 @@ const Form = () => {
     isLoading,
     courseOptions,
     handleSubmit,
-  } = useDemoLeadForm((leadId) => {
-    window.location.href = `/enrollment-form/${leadId}`;
-  });
+  } = useDemoLeadForm();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {

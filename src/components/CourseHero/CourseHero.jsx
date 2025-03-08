@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import CtaButton from "../CtaButton/CtaButton";
 import icons from "../../assets/icons/icons";
 
-const CourseHero = ({ title, text, boldTitle, image }) => {
+const CourseHero = ({ title, text, boldTitle, image, boldText }) => {
   return (
     <div className="relative z-10">
       <div
@@ -24,13 +24,13 @@ const CourseHero = ({ title, text, boldTitle, image }) => {
           </div>
 
           <div>
-            <h3 className="text-white xl:text-5xl md:text-4xl text-3xl leading-tight text-center poppins-bold max-w-md">
+            <h3 className="text-white xl:text-[44px] xl:leading-snug md:text-4xl text-3xl leading-tight text-center poppins-bold max-w-xl">
               {boldTitle} <span className="">{title}</span>
             </h3>
           </div>
           <div>
             <p className="text-white min-[1166px]:text-lg min-[1100px]:text-base text-base text-center min-[1166px]:max-w-md max-w-lg">
-              {text}
+              {text} <span className="poppins-bold">{boldText}</span>
             </p>
           </div>
         </div>

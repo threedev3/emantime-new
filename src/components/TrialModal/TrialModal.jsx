@@ -42,10 +42,7 @@ export default function TrialModal({ openModal, setOpenModal }) {
     isLoading,
     courseOptions,
     handleSubmit,
-  } = useDemoLeadForm((leadId) => {
-    setOpenModal(false);
-    window.location.href = `/enrollment-form/${leadId}`;
-  });
+  } = useDemoLeadForm();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {

@@ -55,6 +55,9 @@ const Footer = () => {
                 <a href="/">Home</a>
               </li>
               <li className="text-white min-[1400px]:text-base text-sm">
+                <a href="/courses/tajweed-crash-course">Tajweed Crash Course</a>
+              </li>
+              <li className="text-white min-[1400px]:text-base text-sm">
                 <a href="/courses/tajweed">Tajweed Mastery</a>
               </li>
               <li className="text-white min-[1400px]:text-base text-sm">
@@ -80,6 +83,9 @@ const Footer = () => {
             </div>
 
             <ul className="flex flex-col gap-4">
+              <li className="text-white min-[1400px]:text-base text-sm">
+                <a href="/ramadan-planner">Ramadan Planner</a>
+              </li>
               <li className="text-white min-[1400px]:text-base text-sm">
                 <a href="/">Privacy Policy</a>
               </li>

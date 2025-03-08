@@ -116,12 +116,12 @@ input[type="number"] {
   }
 
   ::-webkit-scrollbar-track {
-    background: #D9D9D9;
+    background: #d9d9d9;
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #08513F;
+    background: #08513f;
     border-radius: 10px;
   }
 }
@@ -131,8 +131,34 @@ input[type="number"] {
   html,
   .cust-scroll {
     scrollbar-width: thin;
-    scrollbar-color: #08513F #888;
+    scrollbar-color: #08513f #888;
   }
+}
+
+@keyframes marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-ltr {
+  animation: marquee-ltr 40s linear infinite;
+}
+
+.animate-marquee-rtl {
+  animation: marquee-rtl 40s linear infinite;
 }
 
 @tailwind base;

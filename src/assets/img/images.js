@@ -80,6 +80,13 @@ import learnIcon2Tajweed from "./tajweed/learn-icon2.png";
 import learnIcon3Tajweed from "./tajweed/learn-icon3.png";
 import learnIcon4Tajweed from "./tajweed/learn-icon4.png";
 
+// Importing images from the tajweed-crash folder
+import tajweebCrashBg from "./tajweed-crash/tajweedCrashBg.png";
+import specialImg from "./tajweed-crash/specialImg.png";
+import learnImg from "./tajweed-crash/learnImg.png";
+import heroImgTajweedCrash from "./tajweed-crash/heroImg.png";
+import heroArabic from "./tajweed-crash/heroArabic.png";
+
 // Exporting as a single object
 const images = {
   arabic1,
@@ -124,6 +131,11 @@ const images = {
   arrow2,
   email,
   trialImg,
+  tajweebCrashBg,
+  specialImg,
+  learnImg,
+  heroImgTajweedCrash,
+  heroArabic,
   arabic: {
     arabicBg,
     arabicLearn,

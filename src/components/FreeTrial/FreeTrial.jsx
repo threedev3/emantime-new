@@ -3,7 +3,7 @@ import images from "../../assets/img/images";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
 import TrialModal from "../TrialModal/TrialModal";
 
-const FreeTrial = () => {
+const FreeTrial = ({ title, boldTitle, btnText, description }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -14,17 +14,21 @@ const FreeTrial = () => {
       // }}
     >
       <div className="max-w-[1600px] mx-auto flex lg:flex-row flex-col justify-between items-center lg:gap-12 gap-6 h-full w-full">
-        <div className="flex flex-col lg:items-start items-center lg:gap-12 gap-6 h-full">
+        <div className="flex flex-col lg:items-start items-center min-[1400px]:gap-12 xl:gap-8 gap-6 h-full">
           <div>
-            <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-2xl min-[1400px]:max-w-2xl md:max-w-md max-w-sm text-white lg:text-start text-center">
-              Join the Thousands Who{" "}
-              <span className="poppins-bold">Trust EmanTime</span>
+            <h3 className="min-[1400px]:text-4xl xl:text-4xl lg:text-3xl md:text-4xl text-2xl min-[1400px]:max-w-xl md:max-w-md max-w-sm text-white lg:text-start text-center">
+              {title} <span className="poppins-bold">{boldTitle}</span>
             </h3>
+          </div>
+          <div>
+            <p className="min-[1400px]:text-lg xl:text-lg text-base min-[1400px]:max-w-xl md:max-w-md max-w-sm text-white lg:text-start text-center">
+              {description}
+            </p>
           </div>
 
           <div>
             <SecondaryButton
-              label="Book Your Free Trial"
+              label={btnText}
               className="bg-[#DB9E30]"
               buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
               onClick={() => setOpenModal(true)}

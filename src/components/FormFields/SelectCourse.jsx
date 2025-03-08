@@ -1,15 +1,15 @@
-import React from 'react';
-import Select from 'react-select';
+import React from "react";
+import Select from "react-select";
 
-const SelectCourse = ({ 
-  options, 
-  value, 
-  onChange, 
-  placeholder = "Select Courses", 
-  variant = 'default',
-  className = '',
+const SelectCourse = ({
+  options,
+  value,
+  onChange,
+  placeholder = "Select Courses",
+  variant = "default",
+  className = "",
   isMulti = true,
-  additionalStyles = {}
+  additionalStyles = {},
 }) => {
   // Predefined style variants
   const styleVariants = {
@@ -48,13 +48,14 @@ const SelectCourse = ({
           height: "50px",
           overflow: "auto",
         }),
-      }
-    }
+      },
+    },
   };
 
   // Merge variant-specific styles with additional styles
   const mergedStyles = {
-    control: styleVariants.default[variant]?.control || styleVariants.default.control,
+    control:
+      styleVariants.default[variant]?.control || styleVariants.default.control,
     dropdownIndicator: (provided, state) => ({
       ...provided,
       color: "rgb(0 0 0 / 0.6)",
@@ -68,11 +69,13 @@ const SelectCourse = ({
     }),
     menu: (base) => ({
       ...base,
+      height: "150px",
+      overflowY: "scroll",
       position: "absolute",
-      zIndex: 100,
+      zIndex: 10000,
       ...additionalStyles.menu,
     }),
-    ...additionalStyles
+    ...additionalStyles,
   };
 
   return (

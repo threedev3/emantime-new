@@ -9,13 +9,13 @@ import { handleScroll } from "../../utils/scrollToElement";
 import SecondaryButton from "../SecondaryButton/SecondaryButton";
 import TrialModal from "../TrialModal/TrialModal";
 
-const Navbar = () => {
+const TajweedNavbar = () => {
   const navItems = [
     { title: "Home", link: "/" },
     { title: "Courses", isDropdown: true }, // No link for Courses
     { title: "Pricing", link: "/pricing" },
     { title: "Contact Us", link: "/contact-us" },
-    { title: "Ramadan Planner", link: "/ramadan-planner" },
+    // { title: "Ramadan Planner", link: "/ramadan-planner" },
   ];
 
   const courses = [
@@ -37,24 +37,9 @@ const Navbar = () => {
   // };
 
   return (
-    <div className="w-full px-6 relative z-10">
-      <div className="max-w-[1600px] mx-auto flex justify-between items-center">
-        <div
-          style={{
-            backgroundImage: `url('${images.logoBg}')`,
-          }}
-          className="xl:h-40 h-28 xl:w-44 w-28 bg-no-repeat bg-contain flex justify-center items-start"
-        >
-          <a href={"/"}>
-            <img
-              src={images.logo}
-              alt=""
-              className="xl:w-[127px] w-[80px] object-contain"
-            />
-          </a>
-        </div>
-
-        <nav className="lg:block hidden relative">
+    <div className="w-full px-6 relative z-10 bg-[#08513F] xl:h-[90px] h-[75px] flex justify-between">
+      <div className="max-w-[1600px] mx-auto flex justify-between items-center w-full">
+        <nav className="lg:block hidden relative mt-2">
           <ul className="flex gap-8 items-center">
             {navItems.map((item, index) => (
               <li key={index} className="relative group cursor-pointer h-8">
@@ -108,22 +93,38 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        <div className="lg:flex gap-2 hidden">
+        <div
+          style={{
+            backgroundImage: `url('${images.logoBg}')`,
+          }}
+          className="absolute top-0 left-1/2 -translate-x-1/2 xl:h-36 h-32 xl:w-40 w-32 bg-no-repeat bg-contain flex justify-center items-start"
+        >
+          <a href={"/"}>
+            <img
+              src={images.logo}
+              alt=""
+              className="xl:w-[110px] w-[90px] object-contain"
+            />
+          </a>
+        </div>
+
+        <div className="lg:flex gap-3 hidden">
+          <a href="/ramadan-planner">
+            <SecondaryButton
+              label="Ramadan Planner"
+              className="bg-[#FFFFFF]"
+              buttonBg="bg-[#FFFFFF] text-heroCta min-[1400px]:text-base text-sm"
+            />
+          </a>
           <SecondaryButton
             label="Claim Free Trial"
             className="bg-[#DB9E30]"
             buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
             onClick={() => setOpenModal(true)}
           />
-          {/* <SecondaryButton
-            label="Ramadan Planner"
-            className="bg-[#DB9E30]"
-            buttonBg="bg-buttonBg text-white min-[1400px]:text-base text-sm"
-            onClick={() => navigate("/ramadan-planner")}
-          /> */}
         </div>
 
-        <MobileNavigation />
+        <MobileNavigation className="flex justify-end w-full" />
       </div>
 
       {openModal ? (
@@ -133,4 +134,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default TajweedNavbar;

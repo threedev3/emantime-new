@@ -488,6 +488,7 @@ const EnrollmentForm = ({ demoId }) => {
                 </h3>
                 <div className="flex flex-col gap-3">
                   {[
+                    "Tajweed Crash Course",
                     "Tajweed Mastery",
                     "Quran Reading",
                     "Arabic Language",

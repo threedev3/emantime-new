@@ -13,6 +13,7 @@ const navItems = [
     title: "Courses",
     isDropdown: true,
     dropdownItems: [
+      { title: "Tajweed Crash Course", link: "/courses/tajweed-crash-course" },
       { title: "Tajweed Mastery", link: "/courses/tajweed" },
       { title: "Arabic Language", link: "/courses/arabic" },
       { title: "Islamic Studies", link: "/courses/islamic-studies" },
@@ -20,9 +21,10 @@ const navItems = [
   },
   { title: "Pricing", link: "/pricing" },
   { title: "Contact Us", link: "/contact-us" },
+  { title: "Ramadan Planner", link: "/ramadan-planner" },
 ];
 
-const MobileNavigation = () => {
+const MobileNavigation = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -39,7 +41,7 @@ const MobileNavigation = () => {
   };
 
   return (
-    <div className="lg:hidden">
+    <div className={`lg:hidden ${className}`}>
       {/* <button
         onClick={toggleMenu}
         className="p-2 text-gray-500 hover:text-gray-700 focus:outline-none"
@@ -54,8 +56,16 @@ const MobileNavigation = () => {
         onClick={toggleMenu}
         className={`${
           location.pathname === "/terms-and-conditions" ? "invert" : ""
-        }`}
+        } ${location.pathname === "/courses/tajweed-crash-course" ? "" : ""}`}
       />
+      {/* <img
+        src={icons.bars}
+        alt=""
+        onClick={toggleMenu}
+        className={`${
+          location.pathname === "/courses/tajweed-crash-course" ? "hidden" : ""
+        }`}
+      /> */}
 
       <div
         className={`fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${
